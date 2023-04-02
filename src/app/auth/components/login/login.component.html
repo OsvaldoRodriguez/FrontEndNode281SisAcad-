@@ -1,1 +1,67 @@
-<p>login works!</p>
+<!-- <pre>
+    {{ loginForm.value | json }}
+</pre>
+
+{{ loginForm.valid | json }} -->
+
+<div class="container mx-auto my-3">
+  <div class="row">
+    <div class="col-md-12 text-center text-center my-4">
+      <h1>Iniciar Sesion</h1>
+    </div>
+
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+      <div class="card">
+        <img
+          src="./../../../../assets/images/form.png"
+          class="card-img-top mx-auto"
+          alt=""
+        />
+      </div>
+    </div>
+    <!-- formulario -->
+    <div class="col-md-4 py-5 my-4">
+      <div class="row">
+        <form [formGroup]="loginForm">
+          <label class="form-label">Ingresa tu usuario</label>
+          <div class="col-md-12 input-group mb-4">
+            <!-- <span class="input-group-text" id="basic-addon1">Usuario</span> -->
+            <input
+              formControlName="nom_usuario"
+              type="text"
+              class="form-control"
+              placeholder="Usuario"
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <label class="form-label">Ingresa tu contraseña</label>
+          <div class="input-group mb-4">
+            <input
+              formControlName="contrasenia"
+              type="password"
+              class="form-control"
+              placeholder="Contraseña"
+              aria-label="Recipient's username"
+              aria-describedby="basic-addon2"
+            />
+            <!-- <span class="input-group-text" id="basic-addon2">Contraseña</span> -->
+          </div>
+
+          <div class="col-md-12"></div>
+          <button
+            [disabled]="!loginForm.valid"
+            (click)="ingresar()"
+            class="btn btn-outline-primary col-md-12"
+            type="button"
+          >
+            Enviar
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-md-2"></div>
+  </div>
+</div>

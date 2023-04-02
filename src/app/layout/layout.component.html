@@ -1,7 +1,49 @@
-<a routerLink="/web/inicio">INICIO</a> |
+<!-- <a routerLink="/web/inicio">INICIO</a> |
 <a routerLink="/web/eventos">EVENTOS</a> |
 <a routerLink="/auth/login">INGRESAR</a> |
-<a routerLink="/auth/registro">REGISTRARSE</a> |
+<a routerLink="/auth/registro">REGISTRARSE</a> | -->
+
+
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid" >
+      <a class="navbar-brand" href="#">SA</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/web/inicio">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/web/eventos">Eventos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/web/acerca_de">Acerca De</a>
+          </li>
+          
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Buscar</button>
+          
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" routerLink="/auth/login">Iniciar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/auth/registro">Registrarse</a>
+            </li>
+            
+          </ul>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+
+
+
 <!-- renderizando hijos -->
 <router-outlet></router-outlet> 
  
