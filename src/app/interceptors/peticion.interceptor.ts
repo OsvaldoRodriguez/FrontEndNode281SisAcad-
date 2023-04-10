@@ -18,6 +18,8 @@ export class PeticionInterceptor implements HttpInterceptor {
     // aqui hay que interceptar la peticion 
     // validar cosas  y demas
     // este es el token proporcionado al usario al iniciar sesion
+    console.log("llega a interceptar");
+    
     const token = localStorage.getItem('access_token');
     // cualquier peticion se envia con  el token
     const peticion = request.clone({
@@ -36,7 +38,7 @@ export class PeticionInterceptor implements HttpInterceptor {
 
           // entonces puede que el token haya vencido y lo eliminamos
 
-          localStorage.removeItem('access_token');
+          // localStorage.removeItem('access_token');
           // si las credenciales  son incorrectas entonces no deja pasar y vuelve a login
           this.router.navigate(['/auth/login']);
         }

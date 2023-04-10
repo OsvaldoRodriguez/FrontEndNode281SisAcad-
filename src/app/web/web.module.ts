@@ -5,17 +5,22 @@ import { WebRoutingModule } from './web-routing.module';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { EventosComponent } from './components/eventos/eventos.component';
 import { AcercaDeComponent } from './components/acerca-de/acerca-de.component';
-
+import { CardModule } from 'primeng/card';
+import {ButtonModule} from 'primeng/button'
 
 @NgModule({
   declarations: [
     InicioComponent,
     EventosComponent,
-    AcercaDeComponent
+    AcercaDeComponent,
   ],
   imports: [
     CommonModule,
-    WebRoutingModule
+    WebRoutingModule,
+    CardModule,
+    ButtonModule
+  ], exports : [
+    InicioComponent, EventosComponent
   ]
 })
 export class WebModule { }

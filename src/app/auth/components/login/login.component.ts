@@ -32,12 +32,19 @@ export class LoginComponent {
       localStorage.setItem('access_token', res.access_token);
 
       // queremos redireccionar a otra pagina
-      this.router.navigate(['/admin/perfil']);
+      console.log("hasta aqui llega");
+      
+      this.router.navigate(['/admin/sistema/informacion']);
     }, (error : any) => {
       console.log(error);
       // alert("Contraseña Incorrecta");
       
     });
+  }
+
+  salir(){
+    localStorage.removeItem('access_token');
+    this.router.navigate(['/auth/login']);
   }
 
 }
