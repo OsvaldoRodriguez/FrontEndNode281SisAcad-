@@ -10,13 +10,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { WebModule } from 'src/app/web/web.module';
-import { GuardarEditarComponent } from './guardar-editar/guardar-editar.component';
-
-
+import { InputTextModule } from 'primeng/inputtext';
+import { ListboxModule } from 'primeng/listbox';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { DropdownModule } from 'primeng/dropdown';
 @NgModule({
   declarations: [
     MostrarComponent,
-    GuardarEditarComponent
   ],
   imports: [
     CommonModule,
@@ -28,9 +28,12 @@ import { GuardarEditarComponent } from './guardar-editar/guardar-editar.componen
     DialogModule,
     ToastModule,
     FormsModule,
-    WebModule
+    WebModule,
+    InputTextModule,
+    ListboxModule,
+    CascadeSelectModule,
+    DropdownModule
   ], exports : [
-    GuardarEditarComponent
   ]
 })
 export class EventosModule { }

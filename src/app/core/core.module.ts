@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from './services/auth.service';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PeticionInterceptor } from '../interceptors/peticion.interceptor';
+import { AdminService } from './services/admin.service';
+import { EventosService } from './services/eventos.service';
+import { InstitucionService } from './services/institucion.service';
 
 
 
@@ -20,7 +23,8 @@ import { PeticionInterceptor } from '../interceptors/peticion.interceptor';
       provide : HTTP_INTERCEPTORS,
       useClass : PeticionInterceptor,
       multi : true
-    }
+    }, 
+    AdminService, EventosService, InstitucionService
   ]
 })
 export class CoreModule { }

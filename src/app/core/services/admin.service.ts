@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable , EventEmitter} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 // es una interface
@@ -13,7 +13,18 @@ interface usuario {
 
 // var URL_LOCAL = 'http://localhost:3000'
 export class AdminService {
+  // en este caso lo que va a compartir eventos
+  public informacion_compartida_evento = new EventEmitter<any>();
+  public datos_compartidos_evento : any;
+
   constructor(private http: HttpClient) {}
+
+  datos_compartidos_funcion(datos : any){
+    console.log("lo que va a compart en la funcion", datos);
+    
+    this.datos_compartidos_evento = datos;
+    this.informacion_compartida_evento.emit(datos);
+  }
 
   //en este caso los parametros son una interfaz
   go(data: usuario) {

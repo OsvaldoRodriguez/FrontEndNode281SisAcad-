@@ -10,7 +10,7 @@ import {ToastModule} from 'primeng/toast'
 import {MessageService} from 'primeng/api'
 import { FormsModule } from '@angular/forms';
 import { WebModule } from '../web/web.module';
-
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,9 @@ import { WebModule } from '../web/web.module';
     DialogModule,
     ToastModule,
     FormsModule,
-    WebModule
+    WebModule, 
+    DropdownModule
+
     
   ],
   providers :[MessageService], 

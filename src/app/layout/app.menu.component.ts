@@ -24,7 +24,7 @@ export class AppMenuComponent implements OnInit {
                 label: 'GESTIONAR EVENTOS',
                 items: [
                     { label: 'Listar Evento', icon: 'pi pi-fw pi-id-card', routerLink: ['/admin/eventos/mostrar'] },
-                    { label: 'Editar', icon: 'pi pi-fw pi-check-square', routerLink: ['/admin/eventos/guardar-editar'] },
+                    // { label: 'Editar', icon: 'pi pi-fw pi-check-square', routerLink: ['/admin/eventos/guardar-editar'] },
                     // { label: 'Float Label', icon: 'pi pi-fw pi-bookmark', routerLink: ['/uikit/floatlabel'] },
                     // { label: 'Invalid State', icon: 'pi pi-fw pi-exclamation-circle', routerLink: ['/uikit/invalidstate'] },
                     // { label: 'Button', icon: 'pi pi-fw pi-box', routerLink: ['/uikit/button'] },

@@ -1,65 +1,145 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  SimpleChange,
+} from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { AdminService } from 'src/app/core/services/admin.service';
-import {GuardarEditarComponent} from '../guardar-editar/guardar-editar.component'
+import { EventosService } from 'src/app/core/services/eventos.service';
+import { InstitucionService } from 'src/app/core/services/institucion.service';
 @Component({
   selector: 'app-mostrar',
   templateUrl: './mostrar.component.html',
-  styleUrls: ['./mostrar.component.scss']
+  styleUrls: ['./mostrar.component.scss'],
 })
-export class MostrarComponent implements OnInit{
+export class MostrarComponent implements OnInit {
   lista_eventos: any = [];
-  editar_evento : any = null;
-  textoEnviado : any = null;
-  constructor(private adminService: AdminService, private route : Router) {}
+  constructor(
+    private messageService: MessageService,
+    private eventosService: EventosService,
+    private route: Router,
+    private institucionService: InstitucionService
+  ) {}
 
   ngOnInit(): void {
     this.mostrarEventos();
+    this.mostrarInstituciones();
   }
 
- 
+  lista_de_instituciones: any = [];
+  select_id = 0; // para saber si es editar
+  eventoForm: FormGroup = new FormGroup({
+    nombre_Evento: new FormControl('', [Validators.required]),
+    fecha_ini: new FormControl('', [Validators.required]),
+    fecha_fin: new FormControl('', [Validators.required]),
+    logo: new FormControl(''),
+    InstitucionId: new FormControl(0, [Validators.required]),
+  });
+  // para compartir
   mostrarEventos() {
-    this.adminService.listarGeneral('http://localhost:3000/api/evento').subscribe(
+    this.eventosService.mostrar().subscribe(
       (res: any) => {
-        this.lista_eventos = Object.values(res)[0];
+        this.lista_eventos = res;
         console.log(this.lista_eventos);
       },
       (error: any) => console.error(error)
     );
   }
 
-  adicionar(){
+  adicionar() {
     this.route.navigate(['/admin/eventos/guardar-editar']);
   }
-  
 
-  eliminar(Datos : any){
+  eliminar(Datos: any) {
     console.log(Datos);
-    this.adminService.borrarUnDato(Datos).subscribe(
+    this.eventosService.eliminar(Datos).subscribe(
       (res: any) => {
         this.mostrarEventos();
       },
       (error: any) => console.error(error)
     );
   }
+  selectedInstitucion: any;
 
+  visible: boolean = false;
 
-  
-  editar(Datos : any){
-    // console.log(Datos);
-    // this.adminService.borrarUnDato(Datos).subscribe(
-    //   (res: any) => {
-    //     this.mostrarEventos();
-    //   },
-    //   (error: any) => console.error(error)
-    // );
-    if(Datos){
-      this.textoEnviado.emit(Datos);
-    }
-    this.route.navigate(['/admin/eventos/guardar-editar']);
-  
-    
+  showDialog() {
+    this.mostrarInstituciones();
+    this.visible = true;
   }
 
+  hideDialog() {
+    this.visible = false;
+    this.eventoForm.reset();
+    this.select_id = 0;
+  }
 
+  mostrarInstituciones() {
+    this.institucionService.mostrar().subscribe(
+      (res: any) => {
+        this.lista_de_instituciones = res;
+        console.log(this.lista_de_instituciones);
+      },
+      (error: any) => console.error(error)
+    );
+  }
+
+  cancelar() {
+    this.hideDialog();
+  }
+
+  editar(datos: any) {
+    this.select_id = datos.id;
+    console.log(this.select_id, 'llega');
+
+    this.eventoForm.patchValue(datos);
+    this.showDialog();
+    // le envio lo que estoy agarrando
+    // this.adminService.datos_compartidos_funcion(datos);
+    // this.route.navigate(['/admin/eventos/guardar-editar']);
+  }
+  guardarEditar() {
+    if (this.select_id > 0) {
+      // hayq eu editar
+      // this.servicio.actualizar()
+      console.log('entra a editar');
+
+      this.eventosService
+        .actualizar(this.select_id, this.eventoForm.value)
+        .subscribe((res: any) => {
+          const msg = 'Evento Actualizado';
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Actualizdo',
+            detail: msg,
+          });
+          this.hideDialog();
+          this.mostrarEventos();
+        });
+    } else {
+      this.eventosService.guardar(this.eventoForm.value).subscribe(
+        (res: any) => {
+          const msg = 'Evento Añadido';
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Añadido',
+            detail: msg,
+          });
+          this.hideDialog();
+          this.mostrarEventos();
+        },
+        (error: any) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Evento no añadido',
+          });
+        }
+      );
+    }
+  }
 }

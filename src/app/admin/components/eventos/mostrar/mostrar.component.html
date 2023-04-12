@@ -1,125 +1,203 @@
-<div class="flex justify-content-between">
-    <h1>Lista de Eventos</h1>
-    <p-button label="Adicionar Evento" (onClick)="adicionar()"> </p-button>
+
+<p-dialog
+  header="{{this.select_id > 0 ? 'Actualizar Evento' : 'Crear Evento'}}"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+
+{{eventoForm.value  | json}}
+<div class="card">
+  <div class="row">
+    <form [formGroup]="eventoForm">
+      <div class="col-md-12">
+        <h4>Ubicación del Evento</h4>
+      </div>
+
+      <div class="my-3">
+        <select
+          class="form-select form-select-md mb-3"
+          aria-label=".form-select-lg example"
+          formControlName="InstitucionId"
+        >
+          <option
+            *ngFor="let datos of lista_de_instituciones"
+            [value]="datos.id"
+          >
+            {{ datos.nombre_institucion }} - {{ datos.ubicacion }}
+          </option>
+        </select>
+          
+        
+        
+        
+        <!-- <p-dropdown formControlName="InstitucionId" [options]="lista_de_instituciones" optionLabel="nombre_institucion" [style]="{width: '100%'}" ></p-dropdown> -->
+
+      </div>
+
+      <div class="col-md-12">
+        <h4>Descripción del Evento</h4>
+      </div>
+      <label class="form-label">Nombre del Evento</label>
+      <div class="flex">
+        
+        <input type="text" pInputText formControlName="nombre_Evento" [style]="{width: '100%'}"/>
+        
+      </div>
+
+      <label class="form-label">Logo</label>
+      <div class="flex col-md-12 mb-3">
+        <input type="file" pInputText formControlName="logo" [style]="{width: '100%'}"/>
+        
+      </div>
+
+      <div class="row">
+        <label class="form-label">Fecha de Inicio</label>
+          <input type="date" pInputText formControlName="fecha_ini" [style]="{width: '100%'}"/>
+        
+         
+        <label class="form-label">Fecha de Finalización</label>
+          <input type="date" pInputText formControlName="fecha_fin" [style]="{width: '100%'}"/>
+        
+
+        <button type="button" class="btn btn-success" (click)="guardarEditar()">
+          {{this.select_id > 0 ? 'Guardar Cambios' : 'Guardar' }}
+        </button>
+        <button type="button" class="btn btn-danger my-1" (click)="cancelar()">
+          Cancelar
+        </button>
+      </div>
+    </form>
   </div>
-  
-  <div class="card">
-    <p-table
-      selectionMode="single"
-      [(selection)]="lista_eventos"
-      [value]="lista_eventos"
-      [paginator]="true"
-      [rows]="15"
-      [scrollable]="true"
-      scrollHeight="400px"
-      #dt1
-      dataKey="id"
-      [showCurrentPageReport]="true"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      [globalFilterFields]="[
-        'id',
-        'nombre_Evento',
-        'fecha_ini',
-        'fecha_fin',
-        'logo',
-        'Institucion.ubicacion',
-        'ajustes'
-      ]"
-      [tableStyle]="{ 'min-width': '50rem' }"
-    >
-      <ng-template pTemplate="header">
-        <tr>
-          <th pSortableColumn="id">
-            {{ "codigo" | uppercase }} <p-sortIcon field="id"></p-sortIcon>
-          </th>
-          <th pSortableColumn="nombre_Evento">
-            {{ "Nombre" | uppercase }}
-            <p-sortIcon field="nombre_Evento"></p-sortIcon>
-          </th>
-          <th pSortableColumn="fecha_ini">
-            {{ "Inicio" | uppercase }} <p-sortIcon field="fecha_ini"></p-sortIcon>
-          </th>
-          <th pSortableColumn="fecha_fin">
-            {{ "Fin" | uppercase }} <p-sortIcon field="fecha_fin"></p-sortIcon>
-          </th>
-          
-          <th pSortableColumn="logo">
-            {{ "Logo" | uppercase }} <p-sortIcon field="logo"></p-sortIcon>
-          </th>
-          
-          <th pSortableColumn="Institucion.ubicacion">
-            {{ "ubicacion" | uppercase }} <p-sortIcon field="Institucion.ubicacion"></p-sortIcon>
-          </th>
-          <!-- <th pSortableColumn="editar">{{"Editar" | uppercase }}  <p-sortIcon field="editar"></p-sortIcon>   </th>
+</div>
+
+
+
+
+</p-dialog>
+<div class="flex justify-content-between">
+  <h1>Lista de Eventos</h1>
+  <p-button label="Adicionar Evento" (click)="showDialog()"> </p-button>
+</div>
+
+<div class="card">
+  <p-table
+    selectionMode="single"
+    [(selection)]="lista_eventos"
+    [value]="lista_eventos"
+    [paginator]="true"
+    [rows]="15"
+    [scrollable]="true"
+    scrollHeight="400px"
+    #dt1
+    dataKey="id"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="[
+      'id',
+      'nombre_Evento',
+      'fecha_ini',
+      'fecha_fin',
+      'logo',
+      'Institucion.ubicacion',
+      'ajustes'
+    ]"
+    [tableStyle]="{ 'min-width': '50rem' }"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="id">
+          {{ "codigo" | uppercase }} <p-sortIcon field="id"></p-sortIcon>
+        </th>
+        <th pSortableColumn="nombre_Evento">
+          {{ "Nombre" | uppercase }}
+          <p-sortIcon field="nombre_Evento"></p-sortIcon>
+        </th>
+        <th pSortableColumn="fecha_ini">
+          {{ "Inicio" | uppercase }} <p-sortIcon field="fecha_ini"></p-sortIcon>
+        </th>
+        <th pSortableColumn="fecha_fin">
+          {{ "Fin" | uppercase }} <p-sortIcon field="fecha_fin"></p-sortIcon>
+        </th>
+
+        <th pSortableColumn="logo">
+          {{ "Logo" | uppercase }} <p-sortIcon field="logo"></p-sortIcon>
+        </th>
+
+        <th pSortableColumn="Institucion.ubicacion">
+          {{ "ubicacion" | uppercase }}
+          <p-sortIcon field="Institucion.ubicacion"></p-sortIcon>
+        </th>
+        <!-- <th pSortableColumn="editar">{{"Editar" | uppercase }}  <p-sortIcon field="editar"></p-sortIcon>   </th>
               <th pSortableColumn="eliminar">{{"Eliminar"  | uppercase }}  <p-sortIcon field="eliminar"></p-sortIcon>   </th> -->
-          <th pSortableColumn="ajustes">
-            {{ "Ajustes" | uppercase }}
-            <p-sortIcon field="ajustes"></p-sortIcon>
-          </th>
-        </tr>
-  
-        <tr>
-          <th>
-            <p-columnFilter type="text" field="id"></p-columnFilter>
-          </th>
-          <th>
-            <p-columnFilter type="text" field="nombre_Evento"></p-columnFilter>
-          </th>
-          <th>
-            <p-columnFilter type="text" field="fecha_ini"></p-columnFilter>
-          </th>
-          <th>
-            <p-columnFilter type="text" field="fecha_fin"></p-columnFilter>
-          </th>
-          <th>
-            <p-columnFilter type="text" field="logo"></p-columnFilter>
-          </th>
-          <th>
-            <p-columnFilter type="text" field="Institucion.ubicacion"></p-columnFilter>
-          </th>
-          <th>
-            <p-columnFilter type="text" field="ajustes"></p-columnFilter>
-          </th>
-          <!-- <th>
+        <th pSortableColumn="ajustes">
+          {{ "Ajustes" | uppercase }}
+          <p-sortIcon field="ajustes"></p-sortIcon>
+        </th>
+      </tr>
+
+      <tr>
+        <th>
+          <p-columnFilter type="text" field="id"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="nombre_Evento"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="fecha_ini"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="fecha_fin"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="logo"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="Institucion.ubicacion"
+          ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="ajustes"></p-columnFilter>
+        </th>
+        <!-- <th>
                   <p-columnFilter type="text" field="eliminar"></p-columnFilter>
               </th>
               <th>
                   <p-columnFilter type="text" field="actividad"></p-columnFilter>
               </th> -->
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-dato let-dato2>
-        <tr>
-          <td style="width: 15%">{{ dato.id }}</td>
-          <td>{{ dato.nombre_Evento }}</td>
-          <td>{{ dato.fecha_ini | date }}</td>
-          <td>{{ dato.fecha_fin | date }}</td>
-          <td>{{ dato.logo }}</td>
-          <!-- para la ubicacion se esta usando joins -->
-          <td>{{ dato.Institucion.ubicacion  }}</td>
-          <td>
-            <p-button
-              class="border"
-              icon="pi pi-pencil"
-              (onClick)="editar(dato)"
-              styleClass="p-button-raised p-button-warning"
-            ></p-button>
-  
-            <p-button
-              class="border"
-              icon="pi pi-trash"
-              (onClick)="eliminar(dato.id)"
-              styleClass="p-button-raised p-button-danger"
-            ></p-button>
-  
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
-  
-  <h1>{{editar_evento}}</h1>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dato let-dato2>
+      <tr>
+        <td style="width: 15%">{{ dato.id }}</td>
+        <td>{{ dato.nombre_Evento }}</td>
+        <td>{{ dato.fecha_ini | date }}</td>
+        <td>{{ dato.fecha_fin | date }}</td>
+        <td>{{ dato.logo }}</td>
+        <!-- para la ubicacion se esta usando joins -->
+        <td>{{ dato.Institucion.ubicacion }}</td>
+        <td>
+          <p-button
+            class="border"
+            icon="pi pi-pencil"
+            (click)="editar(dato)"
+            styleClass="p-button-raised p-button-warning"
+          ></p-button>
 
-  
-  <p-toast position="top-right"></p-toast>
-  
+          <p-button
+            class="border"
+            icon="pi pi-trash"
+            (click)="eliminar(dato.id)"
+            styleClass="p-button-raised p-button-danger"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-toast position="top-right"></p-toast>
