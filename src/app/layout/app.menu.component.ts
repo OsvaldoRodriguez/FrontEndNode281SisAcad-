@@ -1,7 +1,8 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { LayoutService } from './service/app.layout.service';
-
+import { AuthService } from '../core/services/auth.service';
+import {environmet} from './../permisos/permisos'
 @Component({
     selector: 'app-menu',
     templateUrl: './app.menu.component.html'
@@ -10,39 +11,31 @@ export class AppMenuComponent implements OnInit {
 
     model: any[] = [];
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(public layoutService: LayoutService, private authService : AuthService) { }
 
     ngOnInit() {
         this.model = [
             {
                 label: 'Información Del Sistema',
+                visible : (this.tienePermisos(environmet.permisos.sistema) ? true : false),
                 items: [
                     { label: 'Informacion', icon: 'pi pi-fw pi-home', routerLink: ['/admin/sistema/informacion'] },
                 ]
             },
             {
                 label: 'GESTIONAR EVENTOS',
+                // en el array hay que poner los mismos permisos del guard
+                visible : (this.tienePermisos(environmet.permisos.eventos) ? true : false),
                 items: [
-                    { label: 'Listar Evento', icon: 'pi pi-fw pi-id-card', routerLink: ['/admin/eventos/mostrar'] },
-                    // { label: 'Editar', icon: 'pi pi-fw pi-check-square', routerLink: ['/admin/eventos/guardar-editar'] },
-                    // { label: 'Float Label', icon: 'pi pi-fw pi-bookmark', routerLink: ['/uikit/floatlabel'] },
-                    // { label: 'Invalid State', icon: 'pi pi-fw pi-exclamation-circle', routerLink: ['/uikit/invalidstate'] },
-                    // { label: 'Button', icon: 'pi pi-fw pi-box', routerLink: ['/uikit/button'] },
-                    // { label: 'Table', icon: 'pi pi-fw pi-table', routerLink: ['/uikit/table'] },
-                    // { label: 'List', icon: 'pi pi-fw pi-list', routerLink: ['/uikit/list'] },
-                    // { label: 'Tree', icon: 'pi pi-fw pi-share-alt', routerLink: ['/uikit/tree'] },
-                    // { label: 'Panel', icon: 'pi pi-fw pi-tablet', routerLink: ['/uikit/panel'] },
-                    // { label: 'Overlay', icon: 'pi pi-fw pi-clone', routerLink: ['/uikit/overlay'] },
-                    // { label: 'Media', icon: 'pi pi-fw pi-image', routerLink: ['/uikit/media'] },
-                    // { label: 'Menu', icon: 'pi pi-fw pi-bars', routerLink: ['/uikit/menu'], routerLinkActiveOptions: { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' } },
-                    // { label: 'Message', icon: 'pi pi-fw pi-comment', routerLink: ['/uikit/message'] },
-                    // { label: 'File', icon: 'pi pi-fw pi-file', routerLink: ['/uikit/file'] },
-                    // { label: 'Chart', icon: 'pi pi-fw pi-chart-bar', routerLink: ['/uikit/charts'] },
-                    // { label: 'Misc', icon: 'pi pi-fw pi-circle', routerLink: ['/uikit/misc'] }
+                    { label: 'Eventos', icon: 'pi pi-fw pi-id-card', routerLink: ['/admin/eventos/mostrar']},
+                    // { label: 'Actividades', icon: 'pi pi-fw pi-id-card', routerLink: ['/admin/eventos/actividades']},
+                    
                 ]
             },
             { 
                 label: 'GESTIONAR USUARIOS',
+                
+                visible : (this.tienePermisos(environmet.permisos.usuarios) ? true : false),
                 items: [
                     { label: 'Listar Usuarios', icon: 'pi pi-fw pi-id-card', routerLink: ['/admin/usuarios/listar-usuario'] },
                         
@@ -50,21 +43,27 @@ export class AppMenuComponent implements OnInit {
             },
             {
                 label: 'Infraestructura',
+                
+                visible : (this.tienePermisos(environmet.permisos.infraestructura) ? true : false),
                 items: [
-                    { label: 'Ambiente', icon: 'pi pi-fw pi-prime', routerLink: ['/utilities/icons'] },
+                    { label: 'Ambiente', icon: 'pi pi-fw pi-prime', routerLink: ['/admin/infraestructura/ambiente'] },
                 ]
             },
             {
                 label: 'Instituciones',
+                
+                visible : (this.tienePermisos(environmet.permisos.instituciones) ? true : false),
                 items: [
                     { label: 'Listar', icon: 'pi pi-fw pi-home', routerLink: ['/admin/instituciones/listar'] },
-                    { label: 'Guardar', icon: 'pi pi-fw pi-home', routerLink: ['/admin/instituciones/guardar-editar'] },
+                    // { label: 'Guardar', icon: 'pi pi-fw pi-home', routerLink: ['/admin/instituciones/guardar-editar'] },
                 ]
             },
             {
                 label : 'GESTIONAR AUDITORIA',
+                
+                visible : (this.tienePermisos(environmet.permisos.auditoria) ? true : false),
                 items : [
-                    { label : 'Auditoria', icon: 'pi pi-fw pi-prime', routerLink: ['https://www']}
+                    { label : 'Auditoria', icon: 'pi pi-fw pi-prime', routerLink: ['/admin/auditoria/auditorias']}
                 ]
             },
             
@@ -174,5 +173,11 @@ export class AppMenuComponent implements OnInit {
             //     ]
             // }
         ];
+    }
+
+    tienePermisos(permisos : string[]) : boolean {
+        let permisos_permitidos = permisos;
+        const usuario_actual : string[] = this.authService.getRol();
+        return permisos_permitidos.some( (r : string) => usuario_actual.includes(r));
     }
 }

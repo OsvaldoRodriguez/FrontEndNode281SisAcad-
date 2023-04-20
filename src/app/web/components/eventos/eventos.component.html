@@ -31,7 +31,7 @@
           </ng-template>
         </p-card> 
       </div> -->
-      <div class="col-md-3" *ngFor="let eventos of lista_eventos">
+      <div class="col-md-6" *ngFor="let eventos of lista_eventos">
         <div class="card" >
           <img
             src="https://lumiere-a.akamaihd.net/v1/images/transformers_el_lado_oscuro_de_la_luna-121329126-large_bd791f0f.jpeg?region=0,0,1280,719"
@@ -41,9 +41,10 @@
           <div class="card-body">
             <h5 class="card-title">{{eventos.nombre_Evento}}</h5>
             <p class="card-text">
-              Some quick example text to build on the card title and make up the
+              {{eventos.descripcion}}
               
             </p>
+            <h6>Ubicación: {{eventos.Institucion.ubicacion}} </h6>
             <h6>Fecha Inicio : {{eventos.fecha_ini | date}}</h6>
             <h6>Fecha Fin : {{eventos.fecha_fin | date}}</h6>
             

@@ -1,6 +1,97 @@
+<p-dialog
+  header="{{ this.select_id > 0 ? 'Actualizar Usuario' : 'Crear Usuario' }}"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="p-fluid"
+>
+  {{ usuarioForm.value | json }}
+  <div class="card">
+    <div class="row">
+      <form [formGroup]="usuarioForm">
+        <div class="col-md-12">
+          <h4>Personas Registradas</h4>
+        </div>
+
+        <div class="field">
+          <label for="inventoryStatus">Persona</label>
+          <select
+          class="form-select form-select-md mb-3"
+          aria-label=".form-select-lg example"
+          formControlName="PersonaId"
+        >
+          <option
+            *ngFor="let datos of lista_personas"
+            [value]="datos.id"
+          >
+            {{ datos.nombre }} {{ datos.paterno }} {{datos.materno}}
+          </option>
+        </select>  
+        </div>
+
+
+        <label for="name">Usuario</label>
+        <div class="field">
+          <input
+            type="text"
+            pInputText
+            formControlName="nom_usuario"
+            required
+            autofocus
+          />
+        </div>
+
+        <label for="name">Contraseña</label>
+        <div class="field">
+          <input
+            type="password"
+            pInputText
+            formControlName="contrasenia"
+            required
+            autofocus
+          />
+        </div>
+
+        <label for="name">Correo electronico</label>
+        <div class="field">
+          <input
+            type="email"
+            pInputText
+            formControlName="correo"
+            required
+            autofocus
+          />
+        </div>
+
+        <div class="field">
+          <label class="mb-3">Rol de Usuario</label>
+          <div class="formgrid grid">
+              <div class="field-radiobutton col-6" *ngFor="let dato of lista_roles">
+                  <p-radioButton formControlName ="RolId" value="{{dato.id}}"  ></p-radioButton>
+                  <label >{{dato.descripcion}}</label>
+              </div>
+              
+          </div>
+      </div>
+
+        <div class="row">
+          <button type="button" class="btn btn-success" (click)="guardarEditar()">
+            {{ this.select_id > 0 ? "Guardar Cambios" : "Guardar" }}
+          </button>
+          <button type="button" class="btn btn-danger my-1" (click)="cancelar()">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</p-dialog>
+
 <div class="flex justify-content-between">
   <h1>Lista de Usuarios</h1>
-  <p-button label="Adicionar Usuario" (onClick)="adicionar()"> </p-button>
+  <p-button label="Adicionar Usuario" (onClick)="showDialog()"> </p-button>
 </div>
 
 <div class="card">
@@ -20,11 +111,11 @@
       'nom_usuario',
       'contrasenia',
       'correo',
+      'permiso',
       'foto',
-      'editar',
-      'eliminar',
+      'ajustes'
     ]"
-    [tableStyle]="{ 'min-width': '50rem' }"
+    [tableStyle]="{ 'min-width': '70rem' }"
   >
     <ng-template pTemplate="header">
       <tr>
@@ -35,16 +126,16 @@
           {{ "usuario" | uppercase }}
           <p-sortIcon field="nom_usuario"></p-sortIcon>
         </th>
-        <!-- <th pSortableColumn="contrasenia">
-          {{ "Contraseña" | uppercase }} <p-sortIcon field="contrasenia"></p-sortIcon>
-        </th> -->
+        <th pSortableColumn="permiso">
+          {{ "permiso" | uppercase }} <p-sortIcon field="permiso"></p-sortIcon>
+        </th>
         <th pSortableColumn="correo">
           {{ "correo" | uppercase }} <p-sortIcon field="correo"></p-sortIcon>
         </th>
         <th pSortableColumn="foto">
-            {{ "foto" | uppercase }} <p-sortIcon field="foto"></p-sortIcon>
-          </th>
-          
+          {{ "foto" | uppercase }} <p-sortIcon field="foto"></p-sortIcon>
+        </th>
+
         <th pSortableColumn="actividad">
           {{ "Ajustes" | uppercase }}
           <p-sortIcon field="actividad"></p-sortIcon>
@@ -58,40 +149,42 @@
         <th>
           <p-columnFilter type="text" field="nom_usuario"></p-columnFilter>
         </th>
-        <!-- <th>
-          <p-columnFilter type="text" field="contrasenia"></p-columnFilter>
-        </th> -->
+
+        <th>
+          <p-columnFilter type="text" field="permiso"> </p-columnFilter>
+        </th>
         <th>
           <p-columnFilter type="text" field="correo"></p-columnFilter>
         </th>
         <th>
-            <p-columnFilter type="text" field="foto"></p-columnFilter>
-          </th>
-        <th>
-          <p-columnFilter type="text" field="editar"></p-columnFilter>
+          <p-columnFilter type="text" field="foto"></p-columnFilter>
         </th>
-        
+        <th>
+          <p-columnFilter type="text" field="ajustes"></p-columnFilter>
+        </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-dato>
       <tr>
-        <td style="width: 15%">{{ dato.id }}</td>
-        <td>{{ dato.nom_usuario}}</td>
-        <!-- <td>{{ dato.contrasenia }}</td> -->
-        <td>{{ dato.correo}}</td>
-        <td>{{ dato.foto}}</td>
+        <td>{{ dato.id }}</td>
+        <td>{{ dato.nom_usuario }}</td>
+        <td>
+          {{ dato.Rols[0]?.descripcion }}
+        </td>
+        <td>{{ dato.correo }}</td>
+        <td>{{ dato.foto }}</td>
         <td>
           <p-button
             class="border"
             icon="pi pi-pencil"
-            (onClick)="editar(dato)"
+            (click)="editar(dato)"
             styleClass="p-button-raised p-button-warning"
           ></p-button>
 
           <p-button
             class="border"
             icon="pi pi-trash"
-            (onClick)="eliminar(dato.id)"
+            (click)="eliminar(dato.id)"
             styleClass="p-button-raised p-button-danger"
           ></p-button>
         </td>

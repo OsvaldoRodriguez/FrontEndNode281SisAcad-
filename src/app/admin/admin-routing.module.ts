@@ -1,18 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppLayoutComponent } from '../layout/app.layout.component';
-
+import { IsLoginGuard } from '../guard/is-login.guard';
+import { HasRoleGuard } from '../guard/has-role.guard';
+import {environmet} from './../permisos/permisos'
 const routes: Routes = [
   {
     path: '',
     component: AppLayoutComponent,
+    canActivate : [IsLoginGuard],
     children: [
       {
         path : 'sistema',
+        canActivate : [IsLoginGuard, HasRoleGuard],
+        data : {
+          roles: environmet.permisos.sistema
+        },
         loadChildren : () => import('./components/sistema/sistema.module').then( (m) => m.SistemaModule)
       },
       {
         path: 'eventos',
+        canActivate : [IsLoginGuard, HasRoleGuard],
+        data : {
+          roles: environmet.permisos.eventos
+        },
         loadChildren: () =>
           import('./components/eventos/eventos.module').then(
             (m) => m.EventosModule
@@ -20,16 +31,47 @@ const routes: Routes = [
       },
       {
         path: 'usuarios',
+        canActivate : [IsLoginGuard, HasRoleGuard],
+        data : {
+          roles: environmet.permisos.usuarios
+        },
         loadChildren: () =>
           import('./components/usuarios/usuarios.module').then(
             (m) => m.UsuariosModule
           ),
       },
+
+      {
+        path: 'infraestructura',
+        canActivate : [IsLoginGuard, HasRoleGuard],
+        data : {
+          roles: environmet.permisos.infraestructura
+        },
+        loadChildren: () =>
+          import('./components/infraestructura/infraestructura.module').then(
+            (m) => m.InfraestructuraModule
+          ),
+      },
       {
         path: 'instituciones',
+        canActivate : [IsLoginGuard, HasRoleGuard],
+        data : {
+          roles: environmet.permisos.instituciones
+        },
         loadChildren: () =>
           import('./components/instituciones/instituciones.module').then(
             (m) => m.InstitucionesModule
+          ),
+      },
+      {
+        path: 'auditoria',
+        canActivate : [IsLoginGuard, HasRoleGuard],
+        data : {
+          roles: environmet.permisos.auditoria
+        },
+        loadChildren: () =>
+          import('./components/auditoria/auditoria.module').then(
+            (m) => m.AuditoriaModule
           ),
       },
     ],

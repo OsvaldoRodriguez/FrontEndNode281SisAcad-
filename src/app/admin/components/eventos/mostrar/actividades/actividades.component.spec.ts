@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GuardarEditarComponent } from './guardar-editar.component';
+import { ActividadesComponent } from './actividades.component';
 
-describe('GuardarEditarComponent', () => {
-  let component: GuardarEditarComponent;
-  let fixture: ComponentFixture<GuardarEditarComponent>;
+describe('ActividadesComponent', () => {
+  let component: ActividadesComponent;
+  let fixture: ComponentFixture<ActividadesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GuardarEditarComponent ]
+      declarations: [ ActividadesComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GuardarEditarComponent);
+    fixture = TestBed.createComponent(ActividadesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

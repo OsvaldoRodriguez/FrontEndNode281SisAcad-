@@ -47,6 +47,12 @@
         
       </div>
 
+      <label class="form-label">Descripcion del Evento</label>
+      <div class="flex">
+        <textarea rows="5" cols="30" pInputTextarea formControlName="descripcion" [style]="{width: '100%'}"></textarea>
+
+      </div>
+
       <label class="form-label">Logo</label>
       <div class="flex col-md-12 mb-3">
         <input type="file" pInputText formControlName="logo" [style]="{width: '100%'}"/>
@@ -77,6 +83,8 @@
 
 
 </p-dialog>
+
+
 <div class="flex justify-content-between">
   <h1>Lista de Eventos</h1>
   <p-button label="Adicionar Evento" (click)="showDialog()"> </p-button>
@@ -98,13 +106,14 @@
     [globalFilterFields]="[
       'id',
       'nombre_Evento',
+      'descripcion',
       'fecha_ini',
       'fecha_fin',
       'logo',
       'Institucion.ubicacion',
       'ajustes'
     ]"
-    [tableStyle]="{ 'min-width': '50rem' }"
+    [tableStyle]="{ 'min-width': '100rem' }"
   >
     <ng-template pTemplate="header">
       <tr>
@@ -113,6 +122,10 @@
         </th>
         <th pSortableColumn="nombre_Evento">
           {{ "Nombre" | uppercase }}
+          <p-sortIcon field="nombre_Evento"></p-sortIcon>
+        </th>
+        <th pSortableColumn="descripcion">
+          {{ "Descripcion" | uppercase }}
           <p-sortIcon field="nombre_Evento"></p-sortIcon>
         </th>
         <th pSortableColumn="fecha_ini">
@@ -132,7 +145,7 @@
         </th>
         <!-- <th pSortableColumn="editar">{{"Editar" | uppercase }}  <p-sortIcon field="editar"></p-sortIcon>   </th>
               <th pSortableColumn="eliminar">{{"Eliminar"  | uppercase }}  <p-sortIcon field="eliminar"></p-sortIcon>   </th> -->
-        <th pSortableColumn="ajustes">
+        <th pSortableColumn="ajustes" >
           {{ "Ajustes" | uppercase }}
           <p-sortIcon field="ajustes"></p-sortIcon>
         </th>
@@ -144,6 +157,9 @@
         </th>
         <th>
           <p-columnFilter type="text" field="nombre_Evento"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="descripcion"></p-columnFilter>
         </th>
         <th>
           <p-columnFilter type="text" field="fecha_ini"></p-columnFilter>
@@ -173,8 +189,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-dato let-dato2>
       <tr>
-        <td style="width: 15%">{{ dato.id }}</td>
+        <td>{{ dato.id }}</td>
         <td>{{ dato.nombre_Evento }}</td>
+        <td>{{ dato.descripcion }}</td>
         <td>{{ dato.fecha_ini | date }}</td>
         <td>{{ dato.fecha_fin | date }}</td>
         <td>{{ dato.logo }}</td>
@@ -187,6 +204,16 @@
             (click)="editar(dato)"
             styleClass="p-button-raised p-button-warning"
           ></p-button>
+
+
+          <p-button
+
+            class="border"
+            icon="pi pi-plus"
+            (click)="navegarHaciaHijo(dato.id)" 
+            styleClass="p-button-raised p-button-success"
+          ></p-button>
+          <!-- {{this.dato.id | json}} -->
 
           <p-button
             class="border"
@@ -201,3 +228,6 @@
 </div>
 
 <p-toast position="top-right"></p-toast>
+
+<!-- {{this.select_id}} -->
+<!-- <app-actividades [id_evento]="this.select_id" ></app-actividades> -->

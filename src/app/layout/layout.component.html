@@ -1,6 +1,3 @@
-
-
-
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid" >
       <a class="navbar-brand" href="#">SA</a>
@@ -18,7 +15,11 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/web/acerca_de">Acerca De</a>
           </li>
+          <li class="nav-item" *ngIf="isLogued">
+            <a class="nav-link" routerLink="/admin">Admin</a>
+          </li>
           
+
         </ul>
         <form class="d-flex" role="search">
           <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
@@ -38,6 +39,8 @@
     </div>
   </nav>
 
+  
+  <!-- {{this.isLogued}} -->
 <!-- <app-inicio></app-inicio> -->
 <!-- renderizando hijos -->
 <router-outlet></router-outlet> 

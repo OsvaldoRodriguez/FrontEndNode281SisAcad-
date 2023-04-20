@@ -14,9 +14,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ListboxModule } from 'primeng/listbox';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ActividadesComponent } from './mostrar/actividades/actividades.component';
+import { RadioButtonModule } from 'primeng/radiobutton';
 @NgModule({
   declarations: [
     MostrarComponent,
+    ActividadesComponent,
   ],
   imports: [
     CommonModule,
@@ -32,7 +36,9 @@ import { DropdownModule } from 'primeng/dropdown';
     InputTextModule,
     ListboxModule,
     CascadeSelectModule,
-    DropdownModule
+    DropdownModule,
+    InputTextareaModule,
+    RadioButtonModule
   ], exports : [
   ]
 })

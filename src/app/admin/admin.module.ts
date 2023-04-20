@@ -11,6 +11,7 @@ import {MessageService} from 'primeng/api'
 import { FormsModule } from '@angular/forms';
 import { WebModule } from '../web/web.module';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { DropdownModule } from 'primeng/dropdown';
     ToastModule,
     FormsModule,
     WebModule, 
-    DropdownModule
+    DropdownModule,
+    InputTextareaModule
 
     
   ],

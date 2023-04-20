@@ -24,18 +24,39 @@ ng g m admin/components/instituciones
 ng g c admin/components/instituciones/listar
 ng g c admin/components/instituciones/guardar-editar
 
+#modulo infraestructura
+ng g m admin/components/infraestructura --routing
+ng g c admin/components/infraestructura/ambiente
 
-#para los eventos
+
+#modulo auditoria
+ng g m admin/components/auditoria --routing
+ng g c admin/components/auditoria/auditorias
+
+
+#modulo auditoria
+ng g m admin/components/auditoria --routing
+ng g c admin/components/auditoria/auditorias
+
+#para los eventos y actividades
 ng g m admin/components/eventos
-# ahora para editar-guardar
-ng g m admin/components/evento-mostrar/add-edit-evento
-ng g c admin/components/evento-mostrar/add-edit-evento
+ng g c admin/components/eventos/mostrar
+ng g c admin/components/eventos/actividades
 
 
 # para crear un sercvivio
 ng g s core/services/evento
 ```
 
+
+# necesitamos en eventos (expositor)
+* material (eventos)
+
+# infraestructura (control)
+* asignar ambientes a los eventos (infraestructura)
+* inscripciones y reservas (eventos)
+* asistencia (eventos)
+* certificados (eventos)
 
 
 

@@ -23,27 +23,31 @@ export class LoginComponent {
   ingresar(){
     // se usar authservice para conectar con el servidor
     // se esta enviando el valor atravez del servicio auth y usando la funcion loginConNode (la cual tiene la url del servidor)
-    this.authService.loginConNode(this.loginForm.value).subscribe( (res : any) => {
-      // indicar el formato de la respuesta
-      console.log(res);
-      // alert("Usuario y Contraseña Correctos");
-      // llega el token y hay que guardarlo
-      // guardando el token en localStorage
-      localStorage.setItem('access_token', res.access_token);
+  //   this.authService.loginConNode(this.loginForm.value).subscribe( (res : any) => {
+  //     // indicar el formato de la respuesta
+  //     console.log("DATOS DEL LOGIN EN COMPONENTE LOGIN");
+  //     console.log(res);
+  //     // alert("Usuario y Contraseña Correctos");
+  //     // llega el token y hay que guardarlo
+  //     // guardando el token en localStorage
+  //     localStorage.setItem('access_token', res.access_token);
 
-      // queremos redireccionar a otra pagina
-      console.log("hasta aqui llega");
+  //     // queremos redireccionar a otra pagina
+  //     console.log("hasta aqui llega");
       
-      this.router.navigate(['/admin/sistema/informacion']);
-    }, (error : any) => {
-      console.log(error);
-      // alert("Contraseña Incorrecta");
+  //     this.router.navigate(['/admin/sistema/informacion']);
+  //   }, (error : any) => {
+  //     console.log(error);
+  //     // alert("Contraseña Incorrecta");
       
-    });
-  }
+  //   });
+  // }
+
+  this.authService.loginConNode(this.loginForm.value);
+}
 
   salir(){
-    localStorage.removeItem('access_token');
+    this.authService.logout();
     this.router.navigate(['/auth/login']);
   }
 

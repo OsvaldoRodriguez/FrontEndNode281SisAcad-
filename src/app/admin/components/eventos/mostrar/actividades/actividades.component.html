@@ -1,0 +1,218 @@
+<p-dialog
+  header="{{ this.select_id > 0 ? 'Actualizar Actividad' : 'Crear Actividad' }}"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="p-fluid"
+>
+  {{ actividadForm.value | json }}
+  <div class="card">
+    <div class="row">
+      <form [formGroup]="actividadForm">
+        
+        
+
+
+        <label for="name">Nombre</label>
+        <div class="field">
+          <input
+            type="text"
+            pInputText
+            formControlName="nombre"
+            required
+            autofocus
+          />
+        </div>
+
+        <label for="name">fecha</label>
+        <div class="field">
+          <input
+            type="date"
+            pInputText
+            formControlName="fecha"
+            required
+            autofocus
+          />
+        </div>
+
+        <label for="name">Hora Inicio</label>
+        <div class="field">
+          <input
+            type="time"
+            pInputText
+            formControlName="horario_ini"
+            required
+            autofocus
+          />
+        </div>
+        <label for="name">Hora Fin</label>
+        <div class="field">
+          <input
+            type="time"
+            pInputText
+            formControlName="horario_fin"
+            required
+            autofocus
+          />
+        </div>
+
+        <div class="field">
+          <label class="mb-3">Categoria</label>
+          <div class="formgrid grid">
+              <div class="field-radiobutton col-6" *ngFor="let dato of lista_de_categorias">
+                  <p-radioButton formControlName ="CategoriaId" value="{{dato.id}}"  ></p-radioButton>
+                  <label >{{dato.descripcion}}</label>
+              </div>
+              
+          </div>
+      </div>
+
+        <div class="row">
+          <button type="button" class="btn btn-success" (click)="guardarEditar()">
+            {{ this.select_id > 0 ? "Guardar Cambios" : "Guardar" }}
+          </button>
+          <button type="button" class="btn btn-danger my-1" (click)="cancelar()">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</p-dialog>
+
+
+<div class="flex justify-content-between">
+  <h3>Actividades del Evento</h3>
+  <div class="flex">
+    <div class="flex mx-3">
+        <p-button label="Adicionar Actvidad" (click)="showDialog()"> </p-button>
+    </div>
+      <p-button label="Volver" (click)="volver()"> </p-button>
+  </div>
+</div>
+
+<div class="card">
+  <p-table
+    selectionMode="single"
+    [(selection)]="lista_actividades"
+    [value]="lista_actividades"
+    [paginator]="true"
+    [rows]="15"
+    [scrollable]="true"
+    scrollHeight="400px"
+    #dt1
+    dataKey="id"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="[
+      'id',
+      'nombre',
+      'fecha',
+      'horario_ini',
+      'horario_fin',
+      'categoria',
+      'ajustes'
+    ]"
+    [tableStyle]="{ 'min-width': '100rem' }"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="id">
+          {{ "codigo" | uppercase }} <p-sortIcon field="id"></p-sortIcon>
+        </th>
+        <th pSortableColumn="nombre">
+          {{ "Nombre" | uppercase }}
+          <p-sortIcon field="nombre"></p-sortIcon>
+        </th>
+        <th pSortableColumn="fecha">
+          {{ "Fecha Inicio" | uppercase }}
+          <p-sortIcon field="fecha"></p-sortIcon>
+        </th>
+        <th pSortableColumn="horario_ini">
+          {{ "Hora Inicio" | uppercase }} <p-sortIcon field="horario_ini"></p-sortIcon>
+        </th>
+        <th pSortableColumn="horario_fin">
+          {{ "Hora Fin" | uppercase }} <p-sortIcon field="horario_fin"></p-sortIcon>
+        </th>
+
+
+        <th pSortableColumn="Categorium.descripcion">
+          {{ "Categoria" | uppercase }}
+          <p-sortIcon field="Categorium.descripcion"></p-sortIcon>
+        </th>
+        <!-- <th pSortableColumn="editar">{{"Editar" | uppercase }}  <p-sortIcon field="editar"></p-sortIcon>   </th>
+              <th pSortableColumn="eliminar">{{"Eliminar"  | uppercase }}  <p-sortIcon field="eliminar"></p-sortIcon>   </th> -->
+        <th pSortableColumn="ajustes" >
+          {{ "Ajustes" | uppercase }}
+          <p-sortIcon field="ajustes"></p-sortIcon>
+        </th>
+      </tr>
+
+      <tr>
+        <th>
+          <p-columnFilter type="text" field="id"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="nombre"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="fecha"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="horario_ini"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="horario_fin"></p-columnFilter>
+        </th>
+        
+        <th>
+          <p-columnFilter
+            type="text"
+            field="Categorium.descripcion"
+          ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="ajustes"></p-columnFilter>
+        </th>
+        <!-- <th>
+                  <p-columnFilter type="text" field="eliminar"></p-columnFilter>
+              </th>
+              <th>
+                  <p-columnFilter type="text" field="actividad"></p-columnFilter>
+              </th> -->
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dato let-dato2>
+      <tr>
+        <td>{{ dato.id }}</td>
+        <td>{{ dato.nombre }}</td>
+        <td>{{ dato.fecha | date}}</td>
+        <td>{{ dato.horario_ini  }}</td>
+        <td>{{ dato.horario_fin  }}</td>
+        <td>{{ dato.Categorium.descripcion }}</td>
+        <td>
+          <p-button
+            class="border"
+            icon="pi pi-pencil"
+            (click)="editar(dato)"
+            styleClass="p-button-raised p-button-warning"
+          ></p-button>
+
+          <p-button
+            class="border"
+            icon="pi pi-trash"
+            (click)="eliminar(dato.id)"
+            styleClass="p-button-raised p-button-danger"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-toast position="top-right"></p-toast>
+
+<!-- {{this.select_id}} -->
+<!-- <app-actividades [id_evento]="this.select_id" ></app-actividades> -->

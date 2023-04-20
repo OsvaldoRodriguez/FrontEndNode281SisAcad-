@@ -18,9 +18,10 @@ export class PeticionInterceptor implements HttpInterceptor {
     // aqui hay que interceptar la peticion 
     // validar cosas  y demas
     // este es el token proporcionado al usario al iniciar sesion
-    console.log("llega a interceptar");
-    
+    // console.log("llega a interceptar");
     const token = localStorage.getItem('access_token');
+    // console.log("interceptor", token);
+    
     // cualquier peticion se envia con  el token
     const peticion = request.clone({
       setHeaders :{
@@ -28,6 +29,8 @@ export class PeticionInterceptor implements HttpInterceptor {
         'Authorization' : 'Bearer ' + token
       }
     });
+
+    
     return next.handle(peticion).pipe( tap( () => {},
       (error  : any) => {
         if(error instanceof HttpErrorResponse){
@@ -40,6 +43,8 @@ export class PeticionInterceptor implements HttpInterceptor {
 
           // localStorage.removeItem('access_token');
           // si las credenciales  son incorrectas entonces no deja pasar y vuelve a login
+          // console.log("esta llegando ahsta aqui");
+          
           this.router.navigate(['/auth/login']);
         }
       }

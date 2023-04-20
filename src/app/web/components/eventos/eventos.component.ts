@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AdminService } from 'src/app/core/services/admin.service';
+import { EventosService } from 'src/app/core/services/eventos.service';
 
 @Component({
   selector: 'app-eventos',
@@ -8,11 +8,10 @@ import { AdminService } from 'src/app/core/services/admin.service';
 })
 export class EventosComponent {
   lista_eventos : any = [];
-  constructor(private adminService : AdminService){
-    this.adminService.listarEventos().subscribe(
-
+  constructor(private eventoService : EventosService){
+    this.eventoService.mostrar().subscribe(
       (res : any) => {
-        this.lista_eventos = Object.values(res)[0];
+        this.lista_eventos = res;
         console.log(this.lista_eventos);
       },
       (error: any) => console.error(error)

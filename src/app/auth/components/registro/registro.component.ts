@@ -28,7 +28,8 @@ export class RegistroComponent {
       (res : any) => {
         console.log(res);
         // localStorage.setItem('access_token', res.access_token);
-        this.router.navigate(['/admin/perfil']);
+        
+      this.router.navigate(['/admin/sistema/informacion']);
       }, (error : any) => {
         console.log(error);
         

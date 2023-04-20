@@ -9,8 +9,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AdminService } from 'src/app/core/services/admin.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { EventosService } from 'src/app/core/services/eventos.service';
 import { InstitucionService } from 'src/app/core/services/institucion.service';
+import { ActividadesComponent } from './actividades/actividades.component';
 @Component({
   selector: 'app-mostrar',
   templateUrl: './mostrar.component.html',
@@ -18,12 +20,24 @@ import { InstitucionService } from 'src/app/core/services/institucion.service';
 })
 export class MostrarComponent implements OnInit {
   lista_eventos: any = [];
+  datosParaEnviar : any = "enviando del padres";
   constructor(
+    private authService : AuthService,
     private messageService: MessageService,
     private eventosService: EventosService,
     private route: Router,
     private institucionService: InstitucionService
-  ) {}
+  ) {
+    // ActividadesComponent.datosDelPadreActualizados.subscribe(datos => {
+    //   this.datosDelHijo = datos;
+    // });
+  }
+  navegarHaciaHijo(id : any) {
+    this.datosParaEnviar = id;
+    this.route.navigate(['/admin/eventos/actividades', this.datosParaEnviar]);
+  }
+
+
 
   ngOnInit(): void {
     this.mostrarEventos();
@@ -38,7 +52,20 @@ export class MostrarComponent implements OnInit {
     fecha_fin: new FormControl('', [Validators.required]),
     logo: new FormControl(''),
     InstitucionId: new FormControl(0, [Validators.required]),
+    descripcion : new FormControl('', [Validators.required]),
   });
+
+
+  activied_eventoForm: FormGroup = new FormGroup({
+    nombre: new FormControl('', [Validators.required]),
+    fecha: new FormControl('', [Validators.required]),
+    logo: new FormControl(''),
+    InstitucionId: new FormControl(0, [Validators.required]),
+    descripcion : new FormControl('', [Validators.required]),
+  });
+
+
+  
   // para compartir
   mostrarEventos() {
     this.eventosService.mostrar().subscribe(
@@ -50,9 +77,7 @@ export class MostrarComponent implements OnInit {
     );
   }
 
-  adicionar() {
-    this.route.navigate(['/admin/eventos/guardar-editar']);
-  }
+  
 
   eliminar(Datos: any) {
     console.log(Datos);
@@ -82,7 +107,7 @@ export class MostrarComponent implements OnInit {
     this.institucionService.mostrar().subscribe(
       (res: any) => {
         this.lista_de_instituciones = res;
-        console.log(this.lista_de_instituciones);
+        // console.log('Instituciones', this.lista_de_instituciones);
       },
       (error: any) => console.error(error)
     );
@@ -94,14 +119,19 @@ export class MostrarComponent implements OnInit {
 
   editar(datos: any) {
     this.select_id = datos.id;
-    console.log(this.select_id, 'llega');
 
     this.eventoForm.patchValue(datos);
     this.showDialog();
-    // le envio lo que estoy agarrando
-    // this.adminService.datos_compartidos_funcion(datos);
-    // this.route.navigate(['/admin/eventos/guardar-editar']);
   }
+
+  adicionarActividad(id : any){
+    // console.log("esta lleganod");
+    this.select_id = id;
+    console.log(this.select_id)
+    // this.route.navigate(['/admin/eventos/actividades']);
+    
+  }
+
   guardarEditar() {
     if (this.select_id > 0) {
       // hayq eu editar
