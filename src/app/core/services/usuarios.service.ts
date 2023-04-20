@@ -14,6 +14,13 @@ export class UsuariosService {
     return this.http.get(`${this.url_servidor}/${this.valor_api}`);
   }
 
+  mostrarByUser(datos : string){
+    console.log("esta llegando al servicio", datos);
+    console.log("url", `${this.url_servidor}/${this.valor_api}/${datos}`);
+    
+    return this.http.get(`${this.url_servidor}/${this.valor_api}/${datos}`);
+  }
+
   guardar(datos : any){
     return this.http.post(`${this.url_servidor}/${this.valor_api}`, datos);
   }

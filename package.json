@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "^15.2.0",
     "@angular/router": "^15.2.0",
     "chart.js": "^3.3.2",
+    "google-auth-library": "^8.7.0",
     "jsonwebtoken": "^9.0.0",
     "jwt-decode": "^3.1.2",
     "primeflex": "^3.2.1",

@@ -4,6 +4,7 @@ import { environmet } from 'src/environments/environment';
 import { BehaviorSubject, ignoreElements, map, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
+
 // es una interface
 interface usuario  {
   nom_usuario : string,
@@ -32,21 +33,31 @@ export class AuthService {
   //en este caso los parametros son una interfaz
 
   
-  loginConNode(data : usuario ){
+  loginConNode(data : usuario ) : boolean{
     // la url del servicio
-    const datos : any = this.http.post(`${this.url_servidor}/auth/login`, data).subscribe( (res : any) => {
-      // console.log(res);
+    let  flag : boolean = false;
+    this.http.post(`${this.url_servidor}/auth/login`, data).subscribe( (res : any) => {
+      console.log(res);
       
       localStorage.setItem('access_token', res.access_token);
       localStorage.setItem('user', res.usuario);
       localStorage.setItem('rol_user', JSON.stringify(res.rol));
-      this.router.navigate(['/admin']);
-    }, (error : any) => {
-
-    })
+      flag = true;
+      // console.log("flag", flag);
       
-    return datos;
+      // antes de navegar se enviara un correo
+
+      
+
+      this.router.navigate(['/auth/doble_autentificacion']);
+    }, (error : any) => {
+    })
+    // console.log("flag antes d enviar", flag);
+    
+    return flag;
   }
+
+ 
   getUser(){
     let usuario_actual = localStorage.getItem('user');
     return usuario_actual;
