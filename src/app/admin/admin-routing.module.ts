@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppLayoutComponent } from '../layout/app.layout.component';
 import { IsLoginGuard } from '../guard/is-login.guard';
 import { HasRoleGuard } from '../guard/has-role.guard';
-import {environmet} from './../permisos/permisos'
+import {permisos} from './../permisos/permisos'
+import {permisosPadres} from './../permisos/permisosPadres'
 const routes: Routes = [
   {
     path: '',
@@ -14,7 +15,7 @@ const routes: Routes = [
         path : 'sistema',
         canActivate : [IsLoginGuard, HasRoleGuard],
         data : {
-          roles: environmet.permisos.sistema
+          roles: permisosPadres.permisos.sistema
         },
         loadChildren : () => import('./components/sistema/sistema.module').then( (m) => m.SistemaModule)
       },
@@ -22,7 +23,7 @@ const routes: Routes = [
         path: 'eventos',
         canActivate : [IsLoginGuard, HasRoleGuard],
         data : {
-          roles: environmet.permisos.eventos
+          roles: permisosPadres.permisos.eventos
         },
         loadChildren: () =>
           import('./components/eventos/eventos.module').then(
@@ -33,7 +34,7 @@ const routes: Routes = [
         path: 'usuarios',
         canActivate : [IsLoginGuard, HasRoleGuard],
         data : {
-          roles: environmet.permisos.usuarios
+          roles: permisosPadres.permisos.usuarios
         },
         loadChildren: () =>
           import('./components/usuarios/usuarios.module').then(
@@ -45,7 +46,7 @@ const routes: Routes = [
         path: 'infraestructura',
         canActivate : [IsLoginGuard, HasRoleGuard],
         data : {
-          roles: environmet.permisos.infraestructura
+          roles: permisosPadres.permisos.infraestructura
         },
         loadChildren: () =>
           import('./components/infraestructura/infraestructura.module').then(
@@ -56,7 +57,7 @@ const routes: Routes = [
         path: 'instituciones',
         canActivate : [IsLoginGuard, HasRoleGuard],
         data : {
-          roles: environmet.permisos.instituciones
+          roles: permisosPadres.permisos.instituciones
         },
         loadChildren: () =>
           import('./components/instituciones/instituciones.module').then(
@@ -67,7 +68,7 @@ const routes: Routes = [
         path: 'auditoria',
         canActivate : [IsLoginGuard, HasRoleGuard],
         data : {
-          roles: environmet.permisos.auditoria
+          roles: permisosPadres.permisos.auditoria
         },
         loadChildren: () =>
           import('./components/auditoria/auditoria.module').then(

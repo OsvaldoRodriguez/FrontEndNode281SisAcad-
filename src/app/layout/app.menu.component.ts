@@ -2,7 +2,8 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { LayoutService } from './service/app.layout.service';
 import { AuthService } from '../core/services/auth.service';
-import {environmet} from './../permisos/permisos'
+import {permisos} from './../permisos/permisos'
+import {permisosPadres} from './../permisos/permisosPadres'
 @Component({
     selector: 'app-menu',
     templateUrl: './app.menu.component.html'
@@ -17,7 +18,7 @@ export class AppMenuComponent implements OnInit {
         this.model = [
             {
                 label: 'Información Del Sistema',
-                visible : (this.tienePermisos(environmet.permisos.sistema) ? true : false),
+                visible : (this.tienePermisos(permisosPadres.permisos.sistema) ? true : false),
                 items: [
                     { label: 'Informacion', icon: 'pi pi-fw pi-home', routerLink: ['/admin/sistema/informacion'] },
                 ]
@@ -25,17 +26,17 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'GESTIONAR EVENTOS',
                 // en el array hay que poner los mismos permisos del guard
-                visible : (this.tienePermisos(environmet.permisos.eventos) ? true : false),
+                visible : (this.tienePermisos(permisosPadres.permisos.eventos) ? true : false),
                 items: [
-                    { label: 'Eventos', icon: 'pi pi-fw pi-id-card', routerLink: ['/admin/eventos/mostrar']},
-                    // { label: 'Actividades', icon: 'pi pi-fw pi-id-card', routerLink: ['/admin/eventos/actividades']},
+                    { label: 'Eventos', visible : this.tienePermisos(permisos.permisosHijos.eventos.agregarEventos) ? true: false , icon: 'pi pi-fw pi-id-card', routerLink: ['/admin/eventos/mostrar']},
+                    // { label: 'Actividades', icon: 'pi pi-fw pi-id-card', routerLink: ['/admin/eventos/actividades/:datosParaEnviar']},
                     
                 ]
             },
             { 
                 label: 'GESTIONAR USUARIOS',
                 
-                visible : (this.tienePermisos(environmet.permisos.usuarios) ? true : false),
+                visible : (this.tienePermisos(permisosPadres.permisos.usuarios) ? true : false),
                 items: [
                     { label: 'Listar Usuarios', icon: 'pi pi-fw pi-id-card', routerLink: ['/admin/usuarios/listar-usuario'] },
                         
@@ -44,7 +45,7 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Infraestructura',
                 
-                visible : (this.tienePermisos(environmet.permisos.infraestructura) ? true : false),
+                visible : (this.tienePermisos(permisosPadres.permisos.infraestructura) ? true : false),
                 items: [
                     { label: 'Ambiente', icon: 'pi pi-fw pi-prime', routerLink: ['/admin/infraestructura/ambiente'] },
                 ]
@@ -52,7 +53,7 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Instituciones',
                 
-                visible : (this.tienePermisos(environmet.permisos.instituciones) ? true : false),
+                visible : (this.tienePermisos(permisosPadres.permisos.instituciones) ? true : false),
                 items: [
                     { label: 'Listar', icon: 'pi pi-fw pi-home', routerLink: ['/admin/instituciones/listar'] },
                     // { label: 'Guardar', icon: 'pi pi-fw pi-home', routerLink: ['/admin/instituciones/guardar-editar'] },
@@ -61,7 +62,7 @@ export class AppMenuComponent implements OnInit {
             {
                 label : 'GESTIONAR AUDITORIA',
                 
-                visible : (this.tienePermisos(environmet.permisos.auditoria) ? true : false),
+                visible : (this.tienePermisos(permisosPadres.permisos.auditoria) ? true : false),
                 items : [
                     { label : 'Auditoria', icon: 'pi pi-fw pi-prime', routerLink: ['/admin/auditoria/auditorias']}
                 ]

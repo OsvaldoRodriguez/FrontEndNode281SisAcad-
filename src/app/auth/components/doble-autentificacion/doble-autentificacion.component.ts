@@ -54,6 +54,8 @@ export class DobleAutentificacionComponent {
           this.router.navigate(['admin']);
           this.displayModal = false;
           this.pinForm.reset();
+
+          
         } else {
           this.router.navigate(['auth/login']);
         }

@@ -15,6 +15,7 @@ import { PersonaService } from './services/persona.service';
 import { RolesService } from './services/roles.service';
 import { ActividadEventoService } from './services/actividad-evento.service';
 import { CategoriasService } from './services/categorias.service';
+import { InfosistemaService } from './services/infosistema.service';
 
 @NgModule({
   declarations: [],
@@ -35,7 +36,8 @@ import { CategoriasService } from './services/categorias.service';
     PersonaService,
     RolesService,
     ActividadEventoService,
-    CategoriasService
+    CategoriasService,
+    InfosistemaService
   ],
 })
 export class CoreModule {}

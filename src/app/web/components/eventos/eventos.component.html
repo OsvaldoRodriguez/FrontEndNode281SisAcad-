@@ -34,7 +34,7 @@
       <div class="col-md-6" *ngFor="let eventos of lista_eventos">
         <div class="card" >
           <img
-            src="https://lumiere-a.akamaihd.net/v1/images/transformers_el_lado_oscuro_de_la_luna-121329126-large_bd791f0f.jpeg?region=0,0,1280,719"
+            [src]="'http://localhost:3000/archivos/imagenes/eventos/' + eventos.logo"
             class="card-img-top"
             alt=""
           />

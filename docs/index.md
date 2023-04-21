@@ -53,12 +53,16 @@ ng g s core/services/evento
 * material (eventos)
 
 # infraestructura (control)
+* Adicionar Ambiente
 * asignar ambientes a los eventos (infraestructura)
-* inscripciones y reservas (eventos)
+* inscripciones y reservas (eventos) (participante y control)
 * asistencia (eventos)
 * certificados (eventos)
 
-
+# participante  
+* Navegacion por los eventos
+* comentarios
+* Descargar material
 
 
 

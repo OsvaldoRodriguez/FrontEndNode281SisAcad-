@@ -1,89 +1,106 @@
-
 <p-dialog
-  header="{{this.select_id > 0 ? 'Actualizar Evento' : 'Crear Evento'}}"
+  header="{{ this.select_id > 0 ? 'Actualizar Evento' : 'Crear Evento' }}"
   [(visible)]="visible"
   [modal]="true"
   [style]="{ width: '50vw' }"
   [draggable]="false"
   [resizable]="false"
 >
+  {{ eventoForm.value | json }}
+  <div class="card">
+    <div class="row">
+      <form [formGroup]="eventoForm">
+        <div class="col-md-12">
+          <h4>Ubicación del Evento</h4>
+        </div>
 
-{{eventoForm.value  | json}}
-<div class="card">
-  <div class="row">
-    <form [formGroup]="eventoForm">
-      <div class="col-md-12">
-        <h4>Ubicación del Evento</h4>
-      </div>
-
-      <div class="my-3">
-        <select
-          class="form-select form-select-md mb-3"
-          aria-label=".form-select-lg example"
-          formControlName="InstitucionId"
-        >
-          <option
-            *ngFor="let datos of lista_de_instituciones"
-            [value]="datos.id"
+        <div class="my-3">
+          <select
+            class="form-select form-select-md mb-3"
+            aria-label=".form-select-lg example"
+            formControlName="InstitucionId"
           >
-            {{ datos.nombre_institucion }} - {{ datos.ubicacion }}
-          </option>
-        </select>
-          
-        
-        
-        
-        <!-- <p-dropdown formControlName="InstitucionId" [options]="lista_de_instituciones" optionLabel="nombre_institucion" [style]="{width: '100%'}" ></p-dropdown> -->
+            <option
+              *ngFor="let datos of lista_de_instituciones"
+              [value]="datos.id"
+            >
+              {{ datos.nombre_institucion }} - {{ datos.ubicacion }}
+            </option>
+          </select>
 
-      </div>
+          <!-- <p-dropdown formControlName="InstitucionId" [options]="lista_de_instituciones" optionLabel="nombre_institucion" [style]="{width: '100%'}" ></p-dropdown> -->
+        </div>
 
-      <div class="col-md-12">
-        <h4>Descripción del Evento</h4>
-      </div>
-      <label class="form-label">Nombre del Evento</label>
-      <div class="flex">
-        
-        <input type="text" pInputText formControlName="nombre_Evento" [style]="{width: '100%'}"/>
-        
-      </div>
+        <div class="col-md-12">
+          <h4>Descripción del Evento</h4>
+        </div>
+        <label class="form-label">Nombre del Evento</label>
+        <div class="flex">
+          <input
+            type="text"
+            pInputText
+            formControlName="nombre_Evento"
+            [style]="{ width: '100%' }"
+          />
+        </div>
 
-      <label class="form-label">Descripcion del Evento</label>
-      <div class="flex">
-        <textarea rows="5" cols="30" pInputTextarea formControlName="descripcion" [style]="{width: '100%'}"></textarea>
+        <label class="form-label">Descripcion del Evento</label>
+        <div class="flex">
+          <textarea
+            rows="5"
+            cols="30"
+            pInputTextarea
+            formControlName="descripcion"
+            [style]="{ width: '100%' }"
+          ></textarea>
+        </div>
 
-      </div>
+        <!-- <label class="form-label">Logo</label>
+        <div class="flex col-md-12 mb-3">
+          <input
+            type="file"
+            pInputText
+            formControlName="logo"
+            [style]="{ width: '100%' }"
+          />
+        </div> -->
 
-      <label class="form-label">Logo</label>
-      <div class="flex col-md-12 mb-3">
-        <input type="file" pInputText formControlName="logo" [style]="{width: '100%'}"/>
-        
-      </div>
+        <div class="row">
+          <label class="form-label">Fecha de Inicio</label>
+          <input
+            type="date"
+            pInputText
+            formControlName="fecha_ini"
+            [style]="{ width: '100%' }"
+          />
 
-      <div class="row">
-        <label class="form-label">Fecha de Inicio</label>
-          <input type="date" pInputText formControlName="fecha_ini" [style]="{width: '100%'}"/>
-        
-         
-        <label class="form-label">Fecha de Finalización</label>
-          <input type="date" pInputText formControlName="fecha_fin" [style]="{width: '100%'}"/>
-        
+          <label class="form-label">Fecha de Finalización</label>
+          <input
+            type="date"
+            pInputText
+            formControlName="fecha_fin"
+            [style]="{ width: '100%' }"
+          />
 
-        <button type="button" class="btn btn-success" (click)="guardarEditar()">
-          {{this.select_id > 0 ? 'Guardar Cambios' : 'Guardar' }}
-        </button>
-        <button type="button" class="btn btn-danger my-1" (click)="cancelar()">
-          Cancelar
-        </button>
-      </div>
-    </form>
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="guardarEditar()"
+          >
+            {{ this.select_id > 0 ? "Guardar Cambios" : "Guardar" }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger my-1"
+            (click)="cancelar()"
+          >
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
-
-
-
-
 </p-dialog>
-
 
 <div class="flex justify-content-between">
   <h1>Lista de Eventos</h1>
@@ -145,7 +162,7 @@
         </th>
         <!-- <th pSortableColumn="editar">{{"Editar" | uppercase }}  <p-sortIcon field="editar"></p-sortIcon>   </th>
               <th pSortableColumn="eliminar">{{"Eliminar"  | uppercase }}  <p-sortIcon field="eliminar"></p-sortIcon>   </th> -->
-        <th pSortableColumn="ajustes" >
+        <th pSortableColumn="ajustes">
           {{ "Ajustes" | uppercase }}
           <p-sortIcon field="ajustes"></p-sortIcon>
         </th>
@@ -194,7 +211,19 @@
         <td>{{ dato.descripcion }}</td>
         <td>{{ dato.fecha_ini | date }}</td>
         <td>{{ dato.fecha_fin | date }}</td>
-        <td>{{ dato.logo }}</td>
+        <td>
+          <img
+            [src]="'http://localhost:3000/archivos/imagenes/eventos/' + dato.logo"
+            [alt]="dato.nombre"
+            width="100"
+            class="shadow-4"
+          />
+          <p-button
+            (click)="showModalDialogImage(dato)"
+            icon="pi pi-image"
+            label="Imagen"
+          ></p-button>
+        </td>
         <!-- para la ubicacion se esta usando joins -->
         <td>{{ dato.Institucion.ubicacion }}</td>
         <td>
@@ -205,12 +234,10 @@
             styleClass="p-button-raised p-button-warning"
           ></p-button>
 
-
           <p-button
-
             class="border"
             icon="pi pi-plus"
-            (click)="navegarHaciaHijo(dato.id)" 
+            (click)="navegarHaciaHijo(dato.id)"
             styleClass="p-button-raised p-button-success"
           ></p-button>
           <!-- {{this.dato.id | json}} -->
@@ -229,5 +256,39 @@
 
 <p-toast position="top-right"></p-toast>
 
-<!-- {{this.select_id}} -->
-<!-- <app-actividades [id_evento]="this.select_id" ></app-actividades> -->
+<!-- para imagenes -->
+
+<!-- dialog para imagen -->
+<p-dialog
+  header="Subir Imagen"
+  [(visible)]="displayModalImage"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <!-- para subir archivos -->
+  <p-fileUpload
+    name="demo[]"
+    [customUpload] = "true"
+    (uploadHandler) = "myUploader($event)"
+    accept="image/*"
+  >
+    <ng-template pTemplate="content">
+      <ul *ngIf="uploadedFiles.length">
+        <li *ngFor="let file of uploadedFiles">
+          {{ file.name }} - {{ file.size }} bytes
+        </li>
+      </ul>
+    </ng-template>
+  </p-fileUpload>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="displayModalImage = false"
+      label="Ok"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

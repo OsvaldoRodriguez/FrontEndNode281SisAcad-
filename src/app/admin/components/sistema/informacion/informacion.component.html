@@ -1,1 +1,153 @@
-<p>informacion works!</p>
+<form [formGroup]="infoForm">
+  <div class="card">
+    <div class="grid">
+      <div class="col">
+        <h2>Información del sistema</h2>
+
+        <div class="card">
+          <div class="formgrid grid">
+            <div class="field col">
+              <label for="firstname2">Logo</label>
+              <input
+                id="username"
+                type="file"
+                formControlName="logo"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                aria-describedby="username-help"
+              />
+            </div>
+            <div class="field col">
+              <label for="firstname2">Quienes Somos</label>
+              <textarea
+                id="address"
+                type="text"
+                rows="4"
+                formControlName="quienes_somos"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              ></textarea>
+            </div>
+          </div>
+          <div class="formgrid grid">
+            <div class="field col">
+              <label for="firstname2">Mision</label>
+              <textarea
+                id="address"
+                type="text"
+                rows="2"
+                formControlName="mision"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              ></textarea>
+            </div>
+            <div class="field col">
+              <label for="firstname2">Vision</label>
+              <textarea
+                id="address"
+                type="text"
+                rows="2"
+                formControlName="vision"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="col">
+        <h2>Contacto</h2>
+        <div class="card">
+          <div class="formgrid grid">
+            <div class="field col">
+              <label for="firstname2">Celular</label>
+              <input
+                id="username"
+                type="username"
+                formControlName="celular"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                aria-describedby="username-help"
+              />
+            </div>
+          </div>
+          <div class="formgrid grid">
+            <div class="field col">
+              <label for="firstname2">Correo Electronico</label>
+              <input
+                id="username"
+                type="email"
+                formControlName="correo"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                aria-describedby="username-help"
+              />
+            </div>
+          </div>
+          <div class="formgrid grid">
+            <div class="field col">
+              <label for="firstname2">Direccion</label>
+              <input
+                id="username"
+                type="username"
+                formControlName="direccion"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                aria-describedby="username-help"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <h2>Redes Sociales</h2>
+        <div class="card">
+          <div class="formgrid grid">
+            <div class="field col">
+              <label for="firstname2">Facebook</label>
+              <input
+                id="username"
+                formControlName="facebook"
+                type="username"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                aria-describedby="username-help"
+              />
+            </div>
+          </div>
+          <div class="formgrid grid">
+            <div class="field col">
+              <label for="firstname2">Twitter</label>
+              <input
+                id="username"
+                formControlName="twitter"
+                type="email"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                aria-describedby="username-help"
+              />
+            </div>
+          </div>
+          <div class="formgrid grid">
+            <div class="field col">
+              <label for="firstname2">Instagram</label>
+              <input
+                id="username"
+                type="username"
+                formControlName="instagram"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                aria-describedby="username-help"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="col">
+        <button
+          pButton
+          pRipple
+          (click)="guardarActualizar(this.infoForm.value)"
+          label="Guardar Cambios"
+          class="p-button-success w-full"
+        ></button>
+      </div>
+    </div>
+  </div>
+</form>

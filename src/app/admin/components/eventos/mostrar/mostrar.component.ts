@@ -20,9 +20,13 @@ import { ActividadesComponent } from './actividades/actividades.component';
 })
 export class MostrarComponent implements OnInit {
   lista_eventos: any = [];
-  datosParaEnviar : any = "enviando del padres";
+  eventos: any;
+  datosParaEnviar: any = 'enviando del padres';
+  //imagen
+  displayModalImage: boolean = false;
+  uploadedFiles: any[] = [];
   constructor(
-    private authService : AuthService,
+    private authService: AuthService,
     private messageService: MessageService,
     private eventosService: EventosService,
     private route: Router,
@@ -32,12 +36,10 @@ export class MostrarComponent implements OnInit {
     //   this.datosDelHijo = datos;
     // });
   }
-  navegarHaciaHijo(id : any) {
+  navegarHaciaHijo(id: any) {
     this.datosParaEnviar = id;
     this.route.navigate(['/admin/eventos/actividades', this.datosParaEnviar]);
   }
-
-
 
   ngOnInit(): void {
     this.mostrarEventos();
@@ -46,26 +48,58 @@ export class MostrarComponent implements OnInit {
 
   lista_de_instituciones: any = [];
   select_id = 0; // para saber si es editar
+
   eventoForm: FormGroup = new FormGroup({
     nombre_Evento: new FormControl('', [Validators.required]),
     fecha_ini: new FormControl('', [Validators.required]),
     fecha_fin: new FormControl('', [Validators.required]),
-    logo: new FormControl(''),
+    // logo: new FormControl(''),
     InstitucionId: new FormControl(0, [Validators.required]),
-    descripcion : new FormControl('', [Validators.required]),
+    descripcion: new FormControl('', [Validators.required]),
   });
-
 
   activied_eventoForm: FormGroup = new FormGroup({
     nombre: new FormControl('', [Validators.required]),
     fecha: new FormControl('', [Validators.required]),
     logo: new FormControl(''),
     InstitucionId: new FormControl(0, [Validators.required]),
-    descripcion : new FormControl('', [Validators.required]),
+    descripcion: new FormControl('', [Validators.required]),
   });
 
+  // para las imagenes
+  showModalDialogImage(eventos: any) {
+    this.eventos = { ...eventos }; //recuperando evento (solo el seleccionado)
+    this.displayModalImage = true;
+  }
 
-  
+  myUploader(event?: any) {
+    //event.files == files to upload
+    console.log(event.files);
+    // hasta ahora ya se tiene la imagen en memoria
+    // subiedno por formularios de data
+    let formData = new FormData();
+    formData.append('imagen', event.files[0]); // porque solo es una imagen
+
+    this.eventosService.actualizarImagen(this.eventos.id, formData).subscribe(
+      (res: any) => {
+        this.displayModalImage = false;
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Imagen Actualizada',
+          detail: '',
+        });
+        this.mostrarEventos();
+      },
+      (error: any) => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Error al Actualizar Imagen',
+          detail: '',
+        });
+      }
+    );
+  }
+
   // para compartir
   mostrarEventos() {
     this.eventosService.mostrar().subscribe(
@@ -76,8 +110,6 @@ export class MostrarComponent implements OnInit {
       (error: any) => console.error(error)
     );
   }
-
-  
 
   eliminar(Datos: any) {
     console.log(Datos);
@@ -119,17 +151,16 @@ export class MostrarComponent implements OnInit {
 
   editar(datos: any) {
     this.select_id = datos.id;
-
+    console.log(datos);
     this.eventoForm.patchValue(datos);
     this.showDialog();
   }
 
-  adicionarActividad(id : any){
+  adicionarActividad(id: any) {
     // console.log("esta lleganod");
     this.select_id = id;
-    console.log(this.select_id)
+    console.log(this.select_id);
     // this.route.navigate(['/admin/eventos/actividades']);
-    
   }
 
   guardarEditar() {

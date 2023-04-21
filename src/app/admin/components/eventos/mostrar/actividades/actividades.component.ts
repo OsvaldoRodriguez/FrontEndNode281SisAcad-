@@ -32,9 +32,6 @@ export class ActividadesComponent implements OnInit{
     private actividadEventoService: ActividadEventoService,
     private categoriaService : CategoriasService,
   ) {
-    // ActividadesComponent.datosDelPadreActualizados.subscribe(datos => {
-    //   this.datosDelHijo = datos;
-    // });
   }
   lista_de_categorias : any = [];
   select_id = 0; // para saber si es editar
@@ -59,7 +56,6 @@ export class ActividadesComponent implements OnInit{
       this.datosDelPadre = params.get('datosParaEnviar');
       this.datosDelPadreActualizados.next(this.datosDelPadre);
       this.mostrarActividades();
-      // this.mostrarInstituciones();
       this.mostrarCategorias();
       
   this.actividadForm = new FormGroup({
@@ -73,7 +69,7 @@ export class ActividadesComponent implements OnInit{
       
     });
 
-    console.log("en el hijo", this.datosDelPadre);
+    // console.log("en el hijo", this.datosDelPadre);
     
   }
 
@@ -103,8 +99,8 @@ export class ActividadesComponent implements OnInit{
   mostrarCategorias() {
     this.categoriaService.mostrar().subscribe(
       (res: any) => {
+        
         this.lista_de_categorias = res;
-        console.log(this.lista_de_categorias);
       },
       (error: any) => console.error(error)
     );

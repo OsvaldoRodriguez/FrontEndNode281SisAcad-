@@ -17,6 +17,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ActividadesComponent } from './mostrar/actividades/actividades.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import {FileUploadModule} from 'primeng/fileupload';
 @NgModule({
   declarations: [
     MostrarComponent,
@@ -38,7 +39,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     CascadeSelectModule,
     DropdownModule,
     InputTextareaModule,
-    RadioButtonModule
+    RadioButtonModule,
+    FileUploadModule, 
   ], exports : [
   ]
 })

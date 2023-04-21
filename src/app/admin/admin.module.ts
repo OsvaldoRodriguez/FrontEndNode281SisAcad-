@@ -12,7 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { WebModule } from '../web/web.module';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-
+import { InputTextModule } from 'primeng/inputtext';
+import {FileUploadModule} from 'primeng/fileupload';
 @NgModule({
   declarations: [
   ],
@@ -28,7 +29,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     FormsModule,
     WebModule, 
     DropdownModule,
-    InputTextareaModule
+    InputTextareaModule,
+    InputTextModule,
+    FileUploadModule,
 
     
   ],

@@ -21,7 +21,8 @@ import { TableModule } from 'primeng/table';
     AppLayoutModule, // para importar el dashboard
     // ButtonModule, // para importar un botton desde ngprime
     // CardModule, // para tarjetas
-    TableModule
+    TableModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
