@@ -18,12 +18,20 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FileUploadModule } from 'primeng/fileupload';
 import { RecursosComponent } from './ambiente/recursos/recursos.component';
+import { CrearAmbienteComponent } from './crear-ambiente/crear-ambiente.component';
+import { ListaAmbientesComponent } from './crear-ambiente/lista-ambientes/lista-ambientes.component';
+import { ListaRecursosComponent } from './crear-ambiente/lista-ambientes/lista-recursos/lista-recursos.component';
+import { ActividadesComponent } from './ambiente/actividades/actividades.component';
 
 
 @NgModule({
   declarations: [
     AmbienteComponent,
-    RecursosComponent
+    RecursosComponent,
+    CrearAmbienteComponent,
+    ListaAmbientesComponent,
+    ListaRecursosComponent,
+    ActividadesComponent,
   ],
   imports: [
     CommonModule,

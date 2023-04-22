@@ -86,6 +86,7 @@ export class InformacionComponent {
     this.infoSistemaService.actualizarImagen(this.datosImagen.id, formData).subscribe(
       (res: any) => {
         this.displayModalImage = false;
+        this.mostrar();
         this.messageService.add({
           severity: 'info',
           summary: 'Imagen Actualizada',

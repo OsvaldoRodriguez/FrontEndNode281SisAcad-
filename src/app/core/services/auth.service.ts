@@ -104,11 +104,15 @@ export class AuthService {
   }
 
   actualizar(id : number, data : any){
-    console.log("esta e authService ", id, data);
     return this.http.put(`${this.url_servidor}/auth/actualizar/${id}`, data);
+  }
+
+  actualizarPerfil(id : number, data : any){
+    return this.http.put(`${this.url_servidor}/auth/actualizar-perfil/${id}`, data);
   }
 
   getPerfil(){
     return this.http.get(`${this.url_servidor}/auth/perfil`);
   }
+
 }

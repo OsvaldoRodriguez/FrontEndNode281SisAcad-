@@ -1,5 +1,5 @@
 <p-dialog
-  header="{{ this.select_id > 0 ? 'Actualizar Actividad' : 'Crear Actividad' }}"
+  header="{{ this.select_id > 0 ? 'Actualizar Recurso' : 'Crear Recurso' }}"
   [(visible)]="visible"
   [modal]="true"
   [style]="{ width: '50vw' }"
@@ -7,73 +7,73 @@
   [resizable]="false"
   styleClass="p-fluid"
 >
-  <!-- {{ actividadForm.value | json }} -->
+  {{ recursoForm.value | json }}
   <div class="card">
     <div class="row">
-      <form [formGroup]="actividadForm">
-        
-        
-
-
-        <label for="name">Nombre</label>
+      <form [formGroup]="recursoForm">
+        <label for="name">Tipo de Recurso</label>
         <div class="field">
           <input
             type="text"
             pInputText
-            formControlName="nombre"
+            formControlName="tipo_recurso"
             required
             autofocus
           />
         </div>
 
-        <label for="name">fecha</label>
+        <label for="name">Cantidad</label>
         <div class="field">
           <input
-            type="date"
+            type="number"
             pInputText
-            formControlName="fecha"
+            formControlName="cantidad"
             required
             autofocus
           />
         </div>
 
-        <label for="name">Hora Inicio</label>
+        <!-- <label for="name">Ubicación</label>
         <div class="field">
           <input
-            type="time"
+            type="text"
             pInputText
-            formControlName="horario_ini"
+            formControlName="direccion_ambiente"
             required
             autofocus
           />
-        </div>
-        <label for="name">Hora Fin</label>
-        <div class="field">
-          <input
-            type="time"
-            pInputText
-            formControlName="horario_fin"
-            required
-            autofocus
-          />
-        </div>
+        </div> -->
+        
 
         <div class="field">
-          <label class="mb-3">Categoria</label>
+          <label class="mb-3">Estado</label>
           <div class="formgrid grid">
-              <div class="field-radiobutton col-6" *ngFor="let dato of lista_de_categorias">
-                  <p-radioButton formControlName ="CategoriaId" value="{{dato.id}}"  ></p-radioButton>
-                  <label >{{dato.descripcion}}</label>
-              </div>
-              
+            <div
+              class="field-radiobutton col-6"
+              *ngFor="let dato of lista_estados"
+            >
+              <p-radioButton
+                formControlName="estado"
+                value="{{ dato.descripcion }}"
+              ></p-radioButton>
+              <label>{{ dato.descripcion }}</label>
+            </div>
           </div>
-      </div>
+        </div>
 
         <div class="row">
-          <button type="button" class="btn btn-success" (click)="guardarEditar()">
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="guardarEditar()"
+          >
             {{ this.select_id > 0 ? "Guardar Cambios" : "Guardar" }}
           </button>
-          <button type="button" class="btn btn-danger my-1" (click)="cancelar()">
+          <button
+            type="button"
+            class="btn btn-danger my-1"
+            (click)="cancelar()"
+          >
             Cancelar
           </button>
         </div>
@@ -82,22 +82,21 @@
   </div>
 </p-dialog>
 
-
 <div class="flex justify-content-between">
-  <h3>Actividades del Evento</h3>
+  <h3>Recursos de un Ambiente</h3>
   <div class="flex my-3">
     <div class="flex mx-3">
-        <p-button label="Adicionar Actvidad" (click)="showDialog()"> </p-button>
+      <p-button label="Adicionar Recurso" (click)="showDialog()"> </p-button>
     </div>
-      <p-button label="Volver" (click)="volver()"> </p-button>
+    <p-button label="Volver" (click)="volver()"> </p-button>
   </div>
 </div>
 
 <div class="card">
   <p-table
     selectionMode="single"
-    [(selection)]="lista_actividades"
-    [value]="lista_actividades"
+    [(selection)]="lista_de_recursos"
+    [value]="lista_de_recursos"
     [paginator]="true"
     [rows]="15"
     [scrollable]="true"
@@ -108,11 +107,9 @@
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [globalFilterFields]="[
       'id',
-      'nombre',
-      'fecha',
-      'horario_ini',
-      'horario_fin',
-      'categoria',
+      'tipo_recurso',
+      'cantidad',
+      'estado',
       'ajustes'
     ]"
     [tableStyle]="{ 'min-width': '100rem' }"
@@ -122,29 +119,29 @@
         <th pSortableColumn="id">
           {{ "codigo" | uppercase }} <p-sortIcon field="id"></p-sortIcon>
         </th>
-        <th pSortableColumn="nombre">
-          {{ "Nombre" | uppercase }}
-          <p-sortIcon field="nombre"></p-sortIcon>
+        <th pSortableColumn="tipo_recurso">
+          {{ "Tipo de recurso" | uppercase }}
+          <p-sortIcon field="tipo_recurso"></p-sortIcon>
         </th>
-        <th pSortableColumn="fecha">
-          {{ "Fecha Inicio" | uppercase }}
-          <p-sortIcon field="fecha"></p-sortIcon>
+        <th pSortableColumn="cantidad">
+          {{ "Tamaño" | uppercase }}
+          <p-sortIcon field="cantidad"></p-sortIcon>
         </th>
-        <th pSortableColumn="horario_ini">
-          {{ "Hora Inicio" | uppercase }} <p-sortIcon field="horario_ini"></p-sortIcon>
-        </th>
-        <th pSortableColumn="horario_fin">
-          {{ "Hora Fin" | uppercase }} <p-sortIcon field="horario_fin"></p-sortIcon>
+        <!-- <th pSortableColumn="direccion_ambiente">
+          {{ "Ubicación" | uppercase }}
+          <p-sortIcon field="direccion_ambiente"></p-sortIcon>
+        </th> -->
+        <th pSortableColumn="estado">
+          {{ "estado" | uppercase }} <p-sortIcon field="estado"></p-sortIcon>
         </th>
 
-
-        <th pSortableColumn="Categorium.descripcion">
+        <!-- <th pSortableColumn="Categorium.descripcion">
           {{ "Categoria" | uppercase }}
           <p-sortIcon field="Categorium.descripcion"></p-sortIcon>
-        </th>
+        </th> -->
         <!-- <th pSortableColumn="editar">{{"Editar" | uppercase }}  <p-sortIcon field="editar"></p-sortIcon>   </th>
               <th pSortableColumn="eliminar">{{"Eliminar"  | uppercase }}  <p-sortIcon field="eliminar"></p-sortIcon>   </th> -->
-        <th pSortableColumn="ajustes" >
+        <th pSortableColumn="ajustes">
           {{ "Ajustes" | uppercase }}
           <p-sortIcon field="ajustes"></p-sortIcon>
         </th>
@@ -155,24 +152,29 @@
           <p-columnFilter type="text" field="id"></p-columnFilter>
         </th>
         <th>
-          <p-columnFilter type="text" field="nombre"></p-columnFilter>
+          <p-columnFilter type="text" field="tipo_recurso"></p-columnFilter
+          >
         </th>
         <th>
-          <p-columnFilter type="text" field="fecha"></p-columnFilter>
+          <p-columnFilter type="text" field="cantidad"> </p-columnFilter>
         </th>
+        <!-- <th>
+          <p-columnFilter
+            type="text"
+            field="direccion_ambiente"
+          ></p-columnFilter
+          >
+        </th> -->
         <th>
-          <p-columnFilter type="text" field="horario_ini"></p-columnFilter>
+          <p-columnFilter type="text" field="estado"></p-columnFilter>
         </th>
-        <th>
-          <p-columnFilter type="text" field="horario_fin"></p-columnFilter>
-        </th>
-        
-        <th>
+
+        <!-- <th>
           <p-columnFilter
             type="text"
             field="Categorium.descripcion"
           ></p-columnFilter>
-        </th>
+        </th> -->
         <th>
           <p-columnFilter type="text" field="ajustes"></p-columnFilter>
         </th>
@@ -184,14 +186,14 @@
               </th> -->
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-dato let-dato2>
+    <ng-template pTemplate="body" let-dato>
       <tr>
         <td>{{ dato.id }}</td>
-        <td>{{ dato.nombre }}</td>
-        <td>{{ dato.fecha | date}}</td>
-        <td>{{ dato.horario_ini  }}</td>
-        <td>{{ dato.horario_fin  }}</td>
-        <td>{{ dato.Categorium.descripcion }}</td>
+        <td>{{ dato.tipo_recurso }}</td>
+        <td>{{ dato.cantidad }}</td>
+        <!-- <td>{{ dato.direccion_ambiente }}</td> -->
+        <td>{{ dato.estado }}</td>
+        <!-- <td>{{ dato.Categorium.descripcion }}</td> -->
         <td>
           <p-button
             class="border"
@@ -200,6 +202,13 @@
             styleClass="p-button-raised p-button-warning"
           ></p-button>
 
+          <!-- <p-button
+            class="border"
+            icon="pi pi-plus"
+            (click)="navegarHaciaHijo(dato.id)"
+            styleClass="p-button-raised p-button-success"
+          ></p-button> -->
+          
           <p-button
             class="border"
             icon="pi pi-trash"

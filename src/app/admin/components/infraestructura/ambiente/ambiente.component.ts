@@ -34,7 +34,7 @@ export class AmbienteComponent implements OnInit {
   }
   navegarHaciaHijo(id: any) {
     this.datosParaEnviar = id;
-    this.route.navigate(['/admin/eventos/actividades', this.datosParaEnviar]);
+    this.route.navigate(['/admin/infraestructura/actividades', this.datosParaEnviar]);
   }
 
   ngOnInit(): void {

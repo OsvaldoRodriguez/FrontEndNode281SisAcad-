@@ -16,6 +16,10 @@ import { RolesService } from './services/roles.service';
 import { ActividadEventoService } from './services/actividad-evento.service';
 import { CategoriasService } from './services/categorias.service';
 import { InfosistemaService } from './services/infosistema.service';
+import { AmbientesService } from './services/ambientes.service';
+import { RecursosService } from './services/recursos.service';
+import { ActividadEventoSolicitaAmbienteService } from './services/actividad-evento-solicita-ambiente.service';
+import { ActividadEventoHasExpositorService } from './services/actividad-evento-has-expositor.service';
 
 @NgModule({
   declarations: [],
@@ -37,7 +41,11 @@ import { InfosistemaService } from './services/infosistema.service';
     RolesService,
     ActividadEventoService,
     CategoriasService,
-    InfosistemaService
+    InfosistemaService,
+    AmbientesService,
+    RecursosService,
+    ActividadEventoSolicitaAmbienteService,
+    ActividadEventoHasExpositorService
   ],
 })
 export class CoreModule {}

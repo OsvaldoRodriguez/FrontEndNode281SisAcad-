@@ -10,7 +10,7 @@
     <div class="row">
       <form [formGroup]="eventoForm">
         <div class="col-md-12">
-          <h4>Ubicación del Evento</h4>
+          <h4>Institucion</h4>
         </div>
 
         <div class="my-3">
@@ -103,7 +103,7 @@
 
 <div class="flex justify-content-between">
   <h1>Lista de Eventos</h1>
-  <p-button label="Adicionar Evento" (click)="showDialog()"> </p-button>
+  <!-- <p-button label="Adicionar Evento" (click)="showDialog()"> </p-button> -->
 </div>
 
 <div class="card">
@@ -227,12 +227,12 @@
         <!-- para la ubicacion se esta usando joins -->
         <td>{{ dato.Institucion.ubicacion }}</td>
         <td>
-          <p-button
+          <!-- <p-button
             class="border"
             icon="pi pi-pencil"
             (click)="editar(dato)"
             styleClass="p-button-raised p-button-warning"
-          ></p-button>
+          ></p-button> -->
 
           <p-button
             class="border"
@@ -242,12 +242,12 @@
           ></p-button>
           <!-- {{this.dato.id | json}} -->
 
-          <p-button
+          <!-- <p-button
             class="border"
             icon="pi pi-trash"
             (click)="eliminar(dato.id)"
             styleClass="p-button-raised p-button-danger"
-          ></p-button>
+          ></p-button> -->
         </td>
       </tr>
     </ng-template>

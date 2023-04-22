@@ -23,16 +23,18 @@ export const permisos = {
   permisosHijos: {
     sistema: {
       informacion: ['Administrador'],
+      perfil : ['Administrador', 'Control', 'Participante', 'Expositor']
     },
     eventos: {
       agregarEventos: ['Administrador'],
-      listahola: ['Administrador', 'Control'],
+      material : ['Administrador', 'Expositor']
     },
     usuarios: {
-      listarUsuarios: ['Administrador'],
+      listarUsuarios: ['Administrador'], 
     },
     infraestructura: {
-      ambiente: ['Administrador', 'Control'],
+      asignar_ambiente: ['Administrador', 'Control'],
+      crear_ambiente : ['Administrador', 'Control']
     },
 
     instituciones: {

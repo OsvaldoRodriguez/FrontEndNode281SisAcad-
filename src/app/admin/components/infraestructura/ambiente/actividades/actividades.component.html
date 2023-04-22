@@ -7,7 +7,7 @@
   [resizable]="false"
   styleClass="p-fluid"
 >
-  <!-- {{ actividadForm.value | json }} -->
+  {{ actividadForm.value | json }}
   <div class="card">
     <div class="row">
       <form [formGroup]="actividadForm">
@@ -83,11 +83,57 @@
 </p-dialog>
 
 
+<!-- dialog 2 para el adicionar ambiente -->
+<p-dialog
+  header="{{ this.select_id > 0 ? 'Actualizar Ambiente' : 'Crear Ambiente' }}"
+  [(visible)]="visible2"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="p-fluid"
+>
+  {{ ambienteForm.value | json }}
+  <div class="card">
+    <div class="row">
+      <form [formGroup]="ambienteForm">
+        
+    
+
+        <div class="field">
+          <label class="mb-3">Ambientes Disponibles</label>
+          <div class="formgrid grid">
+              <div class="field-radiobutton col-6" *ngFor="let dato of lista_ambientes">
+                
+                    <p-radioButton formControlName ="AmbienteId" value="{{dato.id}}"  ></p-radioButton>
+                    <label >{{dato.tipo_ambiente}}</label>
+                
+              </div>
+              
+          </div>
+      </div>
+
+        <div class="row">
+          <button type="button" class="btn btn-success" (click)="guardarEditar2()">
+            {{ this.select_id > 0 ? "Guardar Cambios" : "Guardar" }}
+          </button>
+          <button type="button" class="btn btn-danger my-1" (click)="cancelar2()">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</p-dialog>
+
+
+
+
 <div class="flex justify-content-between">
   <h3>Actividades del Evento</h3>
   <div class="flex my-3">
     <div class="flex mx-3">
-        <p-button label="Adicionar Actvidad" (click)="showDialog()"> </p-button>
+        <!-- <p-button label="Adicionar Actvidad" (click)="showDialog()"> </p-button> -->
     </div>
       <p-button label="Volver" (click)="volver()"> </p-button>
   </div>
@@ -198,6 +244,13 @@
             icon="pi pi-pencil"
             (click)="editar(dato)"
             styleClass="p-button-raised p-button-warning"
+          ></p-button>
+
+          <p-button
+            class="border"
+            icon="pi pi-plus"
+            (click) = "showDialog2(dato.id)"
+            styleClass="p-button-raised p-button-success"
           ></p-button>
 
           <p-button

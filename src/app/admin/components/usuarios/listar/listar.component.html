@@ -7,6 +7,7 @@
   [resizable]="false"
   styleClass="p-fluid"
 >
+  {{ usuarioForm.value | json }}
   <div class="card">
     <div class="row">
       <form [formGroup]="usuarioForm">
@@ -17,19 +18,15 @@
         <div class="field">
           <label for="inventoryStatus">Persona</label>
           <select
-          class="form-select form-select-md mb-3"
-          aria-label=".form-select-lg example"
-          formControlName="PersonaId"
-        >
-          <option
-            *ngFor="let datos of lista_personas"
-            [value]="datos.id"
+            class="form-select form-select-md mb-3"
+            aria-label=".form-select-lg example"
+            formControlName="PersonaId"
           >
-            {{ datos.nombre }} {{ datos.paterno }} {{datos.materno}}
-          </option>
-        </select>  
+            <option *ngFor="let datos of lista_personas" [value]="datos.id">
+              {{ datos.nombre }} {{ datos.paterno }} {{ datos.materno }}
+            </option>
+          </select>
         </div>
-
 
         <label for="name">Usuario</label>
         <div class="field">
@@ -67,19 +64,46 @@
         <div class="field">
           <label class="mb-3">Rol de Usuario</label>
           <div class="formgrid grid">
-              <div class="field-radiobutton col-6" *ngFor="let dato of lista_roles">
-                  <p-radioButton formControlName ="RolId" value="{{dato.id}}"  ></p-radioButton>
-                  <label >{{dato.descripcion}}</label>
-              </div>
-              
+            <div
+              class="field-radiobutton col-6"
+              *ngFor="let dato of lista_roles"
+            >
+              <p-radioButton
+                formControlName="RolId"
+                value="{{ dato.id }}"
+              ></p-radioButton>
+              <label>{{ dato.descripcion }}</label>
+            </div>
           </div>
-      </div>
+        </div>
+
+        <div class="field">
+          <label for="name">Experiencia Academica</label>
+          <div class="field">
+            <input
+              style="display: none;"
+              type="email"
+              pInputText
+              formControlName="correo"
+              required
+              autofocus
+            />
+          </div>
+        </div>
 
         <div class="row">
-          <button type="button" class="btn btn-success" (click)="guardarEditar()">
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="guardarEditar()"
+          >
             {{ this.select_id > 0 ? "Guardar Cambios" : "Guardar" }}
           </button>
-          <button type="button" class="btn btn-danger my-1" (click)="cancelar()">
+          <button
+            type="button"
+            class="btn btn-danger my-1"
+            (click)="cancelar()"
+          >
             Cancelar
           </button>
         </div>
@@ -127,7 +151,8 @@
           <p-sortIcon field="nom_usuario"></p-sortIcon>
         </th>
         <th pSortableColumn="Rols[0].descripcion">
-          {{ "permiso" | uppercase }} <p-sortIcon field="Rols[0].descripcion"></p-sortIcon>
+          {{ "permiso" | uppercase }}
+          <p-sortIcon field="Rols[0].descripcion"></p-sortIcon>
         </th>
         <th pSortableColumn="correo">
           {{ "correo" | uppercase }} <p-sortIcon field="correo"></p-sortIcon>
@@ -151,7 +176,8 @@
         </th>
 
         <th>
-          <p-columnFilter type="text" field="Rols[0].descripcion"> </p-columnFilter>
+          <p-columnFilter type="text" field="Rols[0].descripcion">
+          </p-columnFilter>
         </th>
         <th>
           <p-columnFilter type="text" field="correo"></p-columnFilter>
@@ -185,7 +211,6 @@
             label="Imagen"
           ></p-button>
           <!-- {{ dato.foto }} -->
-
         </td>
         <td>
           <p-button
@@ -209,7 +234,6 @@
 
 <p-toast position="top-right"> </p-toast>
 
-
 <p-dialog
   header="Subir Imagen"
   [(visible)]="displayModalImage"
@@ -221,8 +245,8 @@
   <!-- para subir archivos -->
   <p-fileUpload
     name="demo[]"
-    [customUpload] = "true"
-    (uploadHandler) = "myUploader($event)"
+    [customUpload]="true"
+    (uploadHandler)="myUploader($event)"
     accept="image/*"
   >
     <ng-template pTemplate="content">

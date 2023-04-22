@@ -18,10 +18,12 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ActividadesComponent } from './mostrar/actividades/actividades.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import {FileUploadModule} from 'primeng/fileupload';
+import { MaterialComponent } from './material/material.component';
 @NgModule({
   declarations: [
     MostrarComponent,
     ActividadesComponent,
+    MaterialComponent,
   ],
   imports: [
     CommonModule,

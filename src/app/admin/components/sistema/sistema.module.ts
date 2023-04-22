@@ -11,11 +11,14 @@ import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { WebModule } from 'src/app/web/web.module';
 import { FileUploadModule } from 'primeng/fileupload';
+import { PerfilComponent } from './perfil/perfil.component';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 
 @NgModule({
   declarations: [
     InformacionComponent,
+    PerfilComponent,
   ],
   imports: [
     CommonModule,
@@ -28,7 +31,8 @@ import { FileUploadModule } from 'primeng/fileupload';
     ToastModule,
     FormsModule,
     WebModule,
-    FileUploadModule
+    FileUploadModule,
+    RadioButtonModule,
   ]
 })
 export class SistemaModule { }

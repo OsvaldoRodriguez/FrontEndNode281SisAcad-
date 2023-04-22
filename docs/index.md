@@ -28,6 +28,10 @@ ng g c admin/components/instituciones/guardar-editar
 ng g m admin/components/infraestructura --routing
 ng g c admin/components/infraestructura/ambiente
 ng g c admin/components/infraestructura/ambiente/recursos
+ng g c admin/components/infraestructura/ambiente/actividades
+ng g c admin/components/infraestructura/crear-ambiente
+ng g c admin/components/infraestructura/crear-ambiente/lista-ambientes
+ng g c admin/components/infraestructura/crear-ambiente/lista-ambientes/lista-recursos
 
 
 #modulo auditoria
@@ -41,6 +45,7 @@ ng g c admin/components/auditoria/auditorias
 
 #para los eventos y actividades
 ng g m admin/components/eventos
+ng g c admin/components/eventos/material
 ng g c admin/components/eventos/mostrar
 ng g c admin/components/eventos/actividades
 
@@ -61,8 +66,8 @@ ng g s core/services/evento
 * material (eventos)
 
 # infraestructura (control)
-* Adicionar Ambiente (infraestructura)
-* asignar ambientes a los eventos (infraestructura)
+* Crear Ambiente y recursos (Institucion) -> porque adicionara infraestructura por institucion  (OK)
+* asignar ambientes a los eventos (infraestructura) (OK)
 * inscripciones y reservas (eventos) (participante y control)
 * asistencia (eventos)
 * certificados (eventos)
@@ -86,3 +91,23 @@ ng g s core/services/evento
 
 
 
+
+
+
+
+
+###################################################333
+
+
+CATEGOGIRA
+1 Tutoriales	
+2 Conferencias
+3 Mesas Redondas
+4 Presentación de proyectos de Investigación
+
+
+ROLS
+1 Administrador
+2 Control
+3 Participante
+4 Expositor
