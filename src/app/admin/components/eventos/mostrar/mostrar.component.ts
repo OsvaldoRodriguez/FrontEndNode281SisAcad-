@@ -13,12 +13,15 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { EventosService } from 'src/app/core/services/eventos.service';
 import { InstitucionService } from 'src/app/core/services/institucion.service';
 import { ActividadesComponent } from './actividades/actividades.component';
+import {direccion} from './../../../../direccionArchivos/direcciones'
 @Component({
   selector: 'app-mostrar',
   templateUrl: './mostrar.component.html',
   styleUrls: ['./mostrar.component.scss'],
 })
 export class MostrarComponent implements OnInit {
+
+  direccionEventosImagen : any = "";
   lista_eventos: any = [];
   eventos: any;
   datosParaEnviar: any = 'enviando del padres';
@@ -35,6 +38,7 @@ export class MostrarComponent implements OnInit {
     // ActividadesComponent.datosDelPadreActualizados.subscribe(datos => {
     //   this.datosDelHijo = datos;
     // });
+    this.direccionEventosImagen = direccion.eventos;
   }
   navegarHaciaHijo(id: any) {
     this.datosParaEnviar = id;

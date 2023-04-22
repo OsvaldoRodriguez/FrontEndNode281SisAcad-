@@ -7,7 +7,6 @@
   [resizable]="false"
   styleClass="p-fluid"
 >
-  {{ usuarioForm.value | json }}
   <div class="card">
     <div class="row">
       <form [formGroup]="usuarioForm">
@@ -108,10 +107,11 @@
     [showCurrentPageReport]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [globalFilterFields]="[
+      'id',
       'nom_usuario',
       'contrasenia',
       'correo',
-      'permiso',
+      'Rols[0].descripcion',
       'foto',
       'ajustes'
     ]"
@@ -126,8 +126,8 @@
           {{ "usuario" | uppercase }}
           <p-sortIcon field="nom_usuario"></p-sortIcon>
         </th>
-        <th pSortableColumn="permiso">
-          {{ "permiso" | uppercase }} <p-sortIcon field="permiso"></p-sortIcon>
+        <th pSortableColumn="Rols[0].descripcion">
+          {{ "permiso" | uppercase }} <p-sortIcon field="Rols[0].descripcion"></p-sortIcon>
         </th>
         <th pSortableColumn="correo">
           {{ "correo" | uppercase }} <p-sortIcon field="correo"></p-sortIcon>
@@ -151,7 +151,7 @@
         </th>
 
         <th>
-          <p-columnFilter type="text" field="permiso"> </p-columnFilter>
+          <p-columnFilter type="text" field="Rols[0].descripcion"> </p-columnFilter>
         </th>
         <th>
           <p-columnFilter type="text" field="correo"></p-columnFilter>
@@ -169,10 +169,24 @@
         <td>{{ dato.id }}</td>
         <td>{{ dato.nom_usuario }}</td>
         <td>
-          {{ dato.Rols[0]?.descripcion }}
+          {{ dato.Rols[0].descripcion }}
         </td>
         <td>{{ dato.correo }}</td>
-        <td>{{ dato.foto }}</td>
+        <td>
+          <!-- {{dato.foto}} -->
+          <img
+            [src]="this.direccionImagen + dato.foto"
+            width="100"
+            class="shadow-4"
+          />
+          <p-button
+            (click)="showModalDialogImage(dato)"
+            icon="pi pi-image"
+            label="Imagen"
+          ></p-button>
+          <!-- {{ dato.foto }} -->
+
+        </td>
         <td>
           <p-button
             class="border"
@@ -194,3 +208,38 @@
 </div>
 
 <p-toast position="top-right"> </p-toast>
+
+
+<p-dialog
+  header="Subir Imagen"
+  [(visible)]="displayModalImage"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <!-- para subir archivos -->
+  <p-fileUpload
+    name="demo[]"
+    [customUpload] = "true"
+    (uploadHandler) = "myUploader($event)"
+    accept="image/*"
+  >
+    <ng-template pTemplate="content">
+      <ul *ngIf="uploadedFiles.length">
+        <li *ngFor="let file of uploadedFiles">
+          {{ file.name }} - {{ file.size }} bytes
+        </li>
+      </ul>
+    </ng-template>
+  </p-fileUpload>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="displayModalImage = false"
+      label="Ok"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

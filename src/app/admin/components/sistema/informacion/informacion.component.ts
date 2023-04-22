@@ -4,7 +4,8 @@ import {permisos} from './../../../../permisos/permisos'
 import {permisosPadres} from './../../../../permisos/permisosPadres'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { InfosistemaService } from 'src/app/core/services/infosistema.service';
-
+import { MessageService } from 'primeng/api';
+import {direccion} from './../../../../direccionArchivos/direcciones'
 @Component({
   selector: 'app-informacion',
   templateUrl: './informacion.component.html',
@@ -13,7 +14,14 @@ import { InfosistemaService } from 'src/app/core/services/infosistema.service';
 export class InformacionComponent {
 
   datosSistema : any [] = []
-  constructor(private infoSistemaService: InfosistemaService){
+
+
+  displayModalImage: boolean = false;
+  uploadedFiles: any[] = [];
+  datosImagen : any
+  url_imagen : any
+
+  constructor(private infoSistemaService: InfosistemaService, private messageService : MessageService){
     this.mostrar();
   }
 
@@ -34,7 +42,7 @@ export class InformacionComponent {
     this.infoSistemaService.mostrar().subscribe( (res : any) => {
       this.datosSistema = res;
       // console.log(this.datosSistema);
-      
+      this.url_imagen = direccion.infosSitema + this.datosSistema[0].logo
       this.infoForm = new FormGroup({
         logo : new FormControl('', [Validators.required]),
         quienes_somos : new FormControl(this.datosSistema[0]?.quienes_somos, [Validators.required]),
@@ -59,5 +67,38 @@ export class InformacionComponent {
     }, (error : any) => {
       console.log(error);
     })
+  }
+
+  //imagenes
+  showModalDialogImage(datosImagen: any) {
+    this.datosImagen = { ...datosImagen }; //recuperando evento (solo el seleccionado)
+    this.displayModalImage = true;
+  }
+
+  myUploader(event?: any) {
+    //event.files == files to upload
+    console.log(event.files);
+    // hasta ahora ya se tiene la imagen en memoria
+    // subiedno por formularios de data
+    let formData = new FormData();
+    formData.append('imagen', event.files[0]); // porque solo es una imagen
+
+    this.infoSistemaService.actualizarImagen(this.datosImagen.id, formData).subscribe(
+      (res: any) => {
+        this.displayModalImage = false;
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Imagen Actualizada',
+          detail: '',
+        });
+      },
+      (error: any) => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Error al Actualizar Imagen',
+          detail: '',
+        });
+      }
+    );
   }
 }

@@ -15,9 +15,11 @@ import {InputTextareaModule} from 'primeng/inputtextarea'
 import {DropdownModule} from 'primeng/dropdown';
 import {ConfirmDialogModule} from 'primeng/confirmdialog'
 import { InputTextModule } from 'primeng/inputtext';
+import { PersonaComponent } from './persona/persona.component';
 @NgModule({
   declarations: [
-    ListarComponent
+    ListarComponent,
+    PersonaComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +38,8 @@ import { InputTextModule } from 'primeng/inputtext';
     DropdownModule,
     ConfirmDialogModule,
     InputTextareaModule,
-    InputTextModule
+    InputTextModule,
+    FileUploadModule
   ]
 })
 export class UsuariosModule { }

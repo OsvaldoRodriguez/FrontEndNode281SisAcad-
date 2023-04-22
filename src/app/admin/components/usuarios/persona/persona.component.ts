@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -9,13 +9,11 @@ import { UsuariosService } from 'src/app/core/services/usuarios.service';
 import { direccion } from 'src/app/direccionArchivos/direcciones';
 
 @Component({
-  selector: 'app-listar',
-  templateUrl: './listar.component.html',
-  styleUrls: ['./listar.component.scss'],
+  selector: 'app-persona',
+  templateUrl: './persona.component.html',
+  styleUrls: ['./persona.component.scss']
 })
-export class ListarComponent implements OnInit {
-  lista_usuarios: any = [];
-  lista_roles : any = [];
+export class PersonaComponent {
   lista_personas: any = [];
   select_id: number = 0;
   visible: boolean = false;
@@ -41,27 +39,18 @@ export class ListarComponent implements OnInit {
     
   }
 
-  usuarioForm: FormGroup = new FormGroup({
-    nom_usuario: new FormControl('', [Validators.required]),
-    contrasenia: new FormControl('', [Validators.required]),
-    correo: new FormControl('', [Validators.required]),
-    PersonaId: new FormControl(0, [Validators.required]),
-    RolId : new FormControl(0, [Validators.required])
+  personaForm: FormGroup = new FormGroup({
+    nombre: new FormControl('', [Validators.required]),
+    paterno: new FormControl('', [Validators.required]),
+    materno: new FormControl('', [Validators.required]),
+    fecha_nac: new FormControl(0, [Validators.required]),
+    sexo : new FormControl(0, [Validators.required])
   });
   ngOnInit(): void {
-    this.mostrarUsuarios();
     this.mostrarPersonas();
-    this.mostrarRoles();
   }
 
-  mostrarRoles() {
-    this.rolesService.mostrar().subscribe(
-      (res: any) => {
-        this.lista_roles = res;
-      },
-      (error: any) => console.error(error)
-    );
-  }
+  
 
 
   mostrarPersonas() {
@@ -73,28 +62,20 @@ export class ListarComponent implements OnInit {
     );
   }
 
-  mostrarUsuarios() {
-    this.usuarioService.mostrar().subscribe(
-      (res: any) => {
-        this.lista_usuarios = res;
-      },
-      (error: any) => console.error(error)
-    );
-  }
-
+  
   showDialog() {
     this.visible = true;
-    this.usuarioForm.reset();
+    this.personaForm.reset();
   }
 
   cancelar() {
     this.hideDialog();
     this.select_id = 0;
-    this.usuarioForm.reset();
+    this.personaForm.reset();
   }
   guardarEditar() {
     if (this.select_id > 0) {
-      this.authService.actualizar(this.select_id, this.usuarioForm.value).subscribe(
+      this.personaService.actualizar(this.select_id, this.personaForm.value).subscribe(
         (res: any) => {
           const msg = 'Usuario Modificado';
           this.messageService.add({
@@ -103,7 +84,7 @@ export class ListarComponent implements OnInit {
             detail: msg,
           });
           this.hideDialog();
-          this.mostrarUsuarios();
+          this.mostrarPersonas();
         },
         (error: any) => {
           this.messageService.add({
@@ -114,7 +95,7 @@ export class ListarComponent implements OnInit {
         }
       );
     } else {
-      this.authService.registro_user(this.usuarioForm.value).subscribe(
+      this.personaService.guardar(this.personaForm.value).subscribe(
         (res: any) => {
           const msg = 'Usuario Añadido';
           this.messageService.add({
@@ -123,7 +104,7 @@ export class ListarComponent implements OnInit {
             detail: msg,
           });
           this.hideDialog();
-          this.mostrarUsuarios();
+          this.mostrarPersonas();
         },
         (error: any) => {
           this.messageService.add({
@@ -142,12 +123,13 @@ export class ListarComponent implements OnInit {
   editar(datos: any) {
     this.showDialog();
     this.select_id = datos.id;
-    this.usuarioForm = new FormGroup({
-      nom_usuario: new FormControl(datos.nom_usuario, [Validators.required]),
-      contrasenia: new FormControl(datos.contrasenia, [Validators.required]),
-      correo: new FormControl(datos.correo, [Validators.required]),
-      PersonaId: new FormControl(datos.PersonaId, [Validators.required]),
-      RolId : new FormControl(datos.Rols[0]?.id, [Validators.required])
+
+    this.personaForm = new FormGroup({
+      nombre: new FormControl(datos.nombre, [Validators.required]),
+      paterno: new FormControl(datos.paterno, [Validators.required]),
+      materno: new FormControl(datos.materno, [Validators.required]),
+      fecha_nac: new FormControl(datos.fecha_nac, [Validators.required]),
+      sexo : new FormControl(datos.sexo, [Validators.required])
     });
   }
   adicionar() {
@@ -156,45 +138,14 @@ export class ListarComponent implements OnInit {
 
   eliminar(Datos: any) {
     console.log(Datos);
-    this.usuarioService.eliminar(Datos).subscribe(
+    this.personaService.eliminar(Datos).subscribe(
       (res: any) => {
-        this.mostrarUsuarios();
+        this.mostrarPersonas();
       },
       (error: any) => console.error(error)
     );
   }
 
 
-  showModalDialogImage(datos: any) {
-    this.datos = { ...datos }; //recuperando evento (solo el seleccionado)
-    this.displayModalImage = true;
-  }
-
-  myUploader(event?: any) {
-    //event.files == files to upload
-    console.log(event.files);
-    // hasta ahora ya se tiene la imagen en memoria
-    // subiedno por formularios de data
-    let formData = new FormData();
-    formData.append('imagen', event.files[0]); // porque solo es una imagen
-
-    this.usuarioService.actualizarImagen(this.datos.id, formData).subscribe(
-      (res: any) => {
-        this.displayModalImage = false;
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Imagen Actualizada',
-          detail: '',
-        });
-        this.mostrarUsuarios();
-      },
-      (error: any) => {
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Error al Actualizar Imagen',
-          detail: '',
-        });
-      }
-    );
-  }
+  
 }

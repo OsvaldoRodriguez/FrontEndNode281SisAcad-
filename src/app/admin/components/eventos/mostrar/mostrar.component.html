@@ -6,7 +6,6 @@
   [draggable]="false"
   [resizable]="false"
 >
-  {{ eventoForm.value | json }}
   <div class="card">
     <div class="row">
       <form [formGroup]="eventoForm">
@@ -54,16 +53,6 @@
             [style]="{ width: '100%' }"
           ></textarea>
         </div>
-
-        <!-- <label class="form-label">Logo</label>
-        <div class="flex col-md-12 mb-3">
-          <input
-            type="file"
-            pInputText
-            formControlName="logo"
-            [style]="{ width: '100%' }"
-          />
-        </div> -->
 
         <div class="row">
           <label class="form-label">Fecha de Inicio</label>
@@ -212,8 +201,9 @@
         <td>{{ dato.fecha_ini | date }}</td>
         <td>{{ dato.fecha_fin | date }}</td>
         <td>
+          <!-- {{'http://localhost:3000/archivos/imagenes/eventos/' + dato.logo}} -->
           <img
-            [src]="'http://localhost:3000/archivos/imagenes/eventos/' + dato.logo"
+            [src]="this.direccionEventosImagen + dato.logo"
             [alt]="dato.nombre"
             width="100"
             class="shadow-4"

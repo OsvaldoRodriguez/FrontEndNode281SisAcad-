@@ -37,7 +37,7 @@ export class AuthService {
     // la url del servicio
     let  flag : boolean = false;
     this.http.post(`${this.url_servidor}/auth/login`, data).subscribe( (res : any) => {
-      console.log(res);
+      // console.log(res);
       
       localStorage.setItem('access_token', res.access_token);
       localStorage.setItem('user', res.usuario);

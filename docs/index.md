@@ -27,6 +27,7 @@ ng g c admin/components/instituciones/guardar-editar
 #modulo infraestructura
 ng g m admin/components/infraestructura --routing
 ng g c admin/components/infraestructura/ambiente
+ng g c admin/components/infraestructura/ambiente/recursos
 
 
 #modulo auditoria
@@ -43,9 +44,16 @@ ng g m admin/components/eventos
 ng g c admin/components/eventos/mostrar
 ng g c admin/components/eventos/actividades
 
+# para usuarios
+ng g m admin/components/usuarios --routing
+ng g c admin/components/usuarios/listar
+ng g c admin/components/usuarios/persona
+
 
 # para crear un sercvivio
 ng g s core/services/evento
+
+
 ```
 
 
@@ -53,17 +61,28 @@ ng g s core/services/evento
 * material (eventos)
 
 # infraestructura (control)
-* Adicionar Ambiente
+* Adicionar Ambiente (infraestructura)
 * asignar ambientes a los eventos (infraestructura)
 * inscripciones y reservas (eventos) (participante y control)
 * asistencia (eventos)
 * certificados (eventos)
+
+
+
 
 # participante  
 * Navegacion por los eventos
 * comentarios
 * Descargar material
 
+
+
+
+(esto es la pagina, no en el dashboard)
+# participante
+* ingreso s tipos de eventos
+* comentar 
+* Descargar Material
 
 
 

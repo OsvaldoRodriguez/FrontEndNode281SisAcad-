@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { WebModule } from 'src/app/web/web.module';
+import { FileUploadModule } from 'primeng/fileupload';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { WebModule } from 'src/app/web/web.module';
     DialogModule,
     ToastModule,
     FormsModule,
-    WebModule
+    WebModule,
+    FileUploadModule
   ]
 })
 export class SistemaModule { }

@@ -1,3 +1,4 @@
+
 <!-- forma responsiva -->
 <div class="container">
     <!-- col-md-12
@@ -34,7 +35,7 @@
       <div class="col-md-6" *ngFor="let eventos of lista_eventos">
         <div class="card" >
           <img
-            [src]="'http://localhost:3000/archivos/imagenes/eventos/' + eventos.logo"
+            [src]="this.direccionEventosImagen + eventos.logo"
             class="card-img-top"
             alt=""
           />

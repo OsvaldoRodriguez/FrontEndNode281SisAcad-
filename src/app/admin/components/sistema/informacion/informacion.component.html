@@ -8,13 +8,21 @@
           <div class="formgrid grid">
             <div class="field col">
               <label for="firstname2">Logo</label>
-              <input
-                id="username"
-                type="file"
-                formControlName="logo"
-                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                aria-describedby="username-help"
+              <div>
+              </div>
+              <img
+              [src]="this.url_imagen"
+              width="100"
               />
+              <div>
+                
+                <p-button
+                (click)="showModalDialogImage({id : 1})"
+                icon="pi pi-image"
+                label="Imagen"
+                ></p-button>
+              </div>
+              
             </div>
             <div class="field col">
               <label for="firstname2">Quienes Somos</label>
@@ -151,3 +159,38 @@
     </div>
   </div>
 </form>
+
+
+
+<p-dialog
+  header="Subir Imagen"
+  [(visible)]="displayModalImage"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <p-fileUpload
+    name="demo[]"
+    [customUpload] = "true"
+    (uploadHandler) = "myUploader($event)"
+    accept="image/*"
+  >
+    <ng-template pTemplate="content">
+      <ul *ngIf="uploadedFiles.length">
+        <li *ngFor="let file of uploadedFiles">
+          {{ file.name }} - {{ file.size }} bytes
+        </li>
+      </ul>
+    </ng-template>
+  </p-fileUpload>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="displayModalImage = false"
+      label="Ok"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

@@ -39,6 +39,7 @@ export class AppMenuComponent implements OnInit {
                 visible : (this.tienePermisos(permisosPadres.permisos.usuarios) ? true : false),
                 items: [
                     { label: 'Listar Usuarios', icon: 'pi pi-fw pi-id-card', routerLink: ['/admin/usuarios/listar-usuario'] },
+                    { label: 'Listar Persona', icon: 'pi pi-fw pi-id-card', routerLink: ['/admin/usuarios/persona'] },
                         
                 ]
             },

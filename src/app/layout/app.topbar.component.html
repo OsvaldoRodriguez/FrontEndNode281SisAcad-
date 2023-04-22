@@ -1,13 +1,18 @@
 <div class="layout-topbar">
-  <a class="layout-topbar-logo" routerLink="">
+  <a class="layout-topbar-logo" routerLink="/web/inicio">
+    <!-- {{this.url_imagen}} -->
     <img
+            [src]="this.url_imagen"
+            
+          />
+    <!-- <img
       src="assets/layout/images/{{
         layoutService.config.colorScheme === 'light'
           ? 'logo-dark'
           : 'logo-white'
       }}.svg"
       alt="logo"
-    />
+    /> -->
     <span>SISTEMAS ACADEMICOS</span>
   </a>
 

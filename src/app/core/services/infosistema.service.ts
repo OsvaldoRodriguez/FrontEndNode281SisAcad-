@@ -18,5 +18,15 @@ export class InfosistemaService {
     return this.http.get(`${this.url_servidor}/${this.valor_api}`);
   }
 
+  actualizarImagen(id : number, formData : any){
+    return this.http.post(`${this.url_servidor}/${this.valor_api}/${id}/actualizar-imagen`, formData);
+  }
+
+  mostrarId(id : number){
+    // se puede enviar el id por body utilizando post
+    return this.http.get(`${this.url_servidor}/${this.valor_api}/${id}`);
+  }
+
+
 
 }

@@ -21,6 +21,10 @@ export class UsuariosService {
     return this.http.get(`${this.url_servidor}/${this.valor_api}/${datos}`);
   }
 
+  actualizarImagen(id : number, formData : any){
+    return this.http.post(`${this.url_servidor}/${this.valor_api}/${id}/actualizar-imagen`, formData);
+  }
+
   guardar(datos : any){
     return this.http.post(`${this.url_servidor}/${this.valor_api}`, datos);
   }

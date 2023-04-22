@@ -1,0 +1,200 @@
+<p-dialog
+  header="{{ this.select_id > 0 ? 'Actualizar Persona' : 'Crear Persona' }}"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="p-fluid"
+>
+  <div class="card">
+    <div class="row">
+      <form [formGroup]="personaForm">
+        
+
+
+        <label for="name">Nombre</label>
+        <div class="field">
+          <input
+            type="text"
+            pInputText
+            formControlName="nombre"
+            required
+            autofocus
+          />
+        </div>
+
+        <label for="name">Apellido Parterno</label>
+        <div class="field">
+          <input
+            type="text"
+            pInputText
+            formControlName="paterno"
+            required
+            autofocus
+          />
+        </div>
+
+        <label for="name">Apellido Materno</label>
+        <div class="field">
+          <input
+            type="text"
+            pInputText
+            formControlName="materno"
+            required
+            autofocus
+          />
+        </div>
+
+        <label for="name">Fecha de nacimiento</label>
+        <div class="field">
+          <input
+            type="date"
+            pInputText
+            formControlName="fecha_nac"
+            required
+            autofocus
+          />
+        </div>
+
+        <label for="name">Sexo</label>
+        <div class="field">
+          <input
+            type="text"
+            pInputText
+            formControlName="sexo"
+            required
+            autofocus
+          />
+        </div>
+
+        
+
+        <div class="row">
+          <button type="button" class="btn btn-success" (click)="guardarEditar()">
+            {{ this.select_id > 0 ? "Guardar Cambios" : "Guardar" }}
+          </button>
+          <button type="button" class="btn btn-danger my-1" (click)="cancelar()">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</p-dialog>
+
+<div class="flex justify-content-between">
+  <h1>Lista de Personas</h1>
+  <p-button label="Adicionar Persona" (onClick)="showDialog()"> </p-button>
+</div>
+
+<div class="card">
+  <p-table
+    selectionMode="single"
+    [(selection)]="lista_personas"
+    [value]="lista_personas"
+    [paginator]="true"
+    [rows]="15"
+    [scrollable]="true"
+    scrollHeight="400px"
+    #dt1
+    dataKey="id"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="[
+      'id',
+      'nombre',
+      'paterno',
+      'materno',
+      'fecha_nac',
+      'sexo',
+      'ajustes'
+    ]"
+    [tableStyle]="{ 'min-width': '90rem' }"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="id">
+          {{ "codigo" | uppercase }} <p-sortIcon field="id"></p-sortIcon>
+        </th>
+        <th pSortableColumn="nombre">
+          {{ "nombre" | uppercase }}
+          <p-sortIcon field="nombre"></p-sortIcon>
+        </th>
+        <th pSortableColumn="paterno">
+          {{ "paterno" | uppercase }} <p-sortIcon field="paterno"></p-sortIcon>
+        </th>
+        <th pSortableColumn="materno">
+          {{ "materno" | uppercase }} <p-sortIcon field="materno"></p-sortIcon>
+        </th>
+        <th pSortableColumn="fecha_nac">
+          {{ "fecha_nac" | uppercase }} <p-sortIcon field="fecha_nac"></p-sortIcon>
+        </th>
+        <th pSortableColumn="sexo">
+            {{ "sexo" | uppercase }} <p-sortIcon field="sexo"></p-sortIcon>
+          </th>
+
+        <th pSortableColumn="actividad">
+          {{ "Ajustes" | uppercase }}
+          <p-sortIcon field="actividad"></p-sortIcon>
+        </th>
+      </tr>
+
+      <tr>
+        <th>
+          <p-columnFilter type="text" field="id"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="nombre"></p-columnFilter>
+        </th>
+
+        <th>
+          <p-columnFilter type="text" field="paterno"> </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="materno"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="date" field="fecha_nac"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="sexo"></p-columnFilter>
+        </th>
+        <th>
+            <p-columnFilter type="text" field="ajustes"></p-columnFilter>
+          </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dato>
+      <tr>
+        <td>{{ dato.id }}</td>
+        <td>{{ dato.nombre }}</td>
+        <td>
+          {{ dato.paterno }}
+        </td>
+        <td>{{ dato.materno }}</td>
+        <td>{{ dato.fecha_nac | date }}</td>
+        <td>{{ dato.sexo }}</td>
+        
+        <td>
+          <p-button
+            class="border"
+            icon="pi pi-pencil"
+            (click)="editar(dato)"
+            styleClass="p-button-raised p-button-warning"
+          ></p-button>
+
+          <p-button
+            class="border"
+            icon="pi pi-trash"
+            (click)="eliminar(dato.id)"
+            styleClass="p-button-raised p-button-danger"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-toast position="top-right"> </p-toast>
+
