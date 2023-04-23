@@ -20,6 +20,8 @@ import { AmbientesService } from './services/ambientes.service';
 import { RecursosService } from './services/recursos.service';
 import { ActividadEventoSolicitaAmbienteService } from './services/actividad-evento-solicita-ambiente.service';
 import { ActividadEventoHasExpositorService } from './services/actividad-evento-has-expositor.service';
+import { MaterialDeActividadService } from './services/material-de-actividad.service';
+import { ExpositoresService } from './services/expositores.service';
 
 @NgModule({
   declarations: [],
@@ -45,7 +47,9 @@ import { ActividadEventoHasExpositorService } from './services/actividad-evento-
     AmbientesService,
     RecursosService,
     ActividadEventoSolicitaAmbienteService,
-    ActividadEventoHasExpositorService
+    ActividadEventoHasExpositorService,
+    MaterialDeActividadService,
+    ExpositoresService
   ],
 })
 export class CoreModule {}

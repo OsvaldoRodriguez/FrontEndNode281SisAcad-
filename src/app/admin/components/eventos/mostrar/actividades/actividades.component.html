@@ -7,14 +7,10 @@
   [resizable]="false"
   styleClass="p-fluid"
 >
-  <!-- {{ actividadForm.value | json }} -->
+  {{ actividadForm.value | json }}
   <div class="card">
     <div class="row">
       <form [formGroup]="actividadForm">
-        
-        
-
-
         <label for="name">Nombre</label>
         <div class="field">
           <input
@@ -61,19 +57,49 @@
         <div class="field">
           <label class="mb-3">Categoria</label>
           <div class="formgrid grid">
-              <div class="field-radiobutton col-6" *ngFor="let dato of lista_de_categorias">
-                  <p-radioButton formControlName ="CategoriaId" value="{{dato.id}}"  ></p-radioButton>
-                  <label >{{dato.descripcion}}</label>
-              </div>
-              
+            <div
+              class="field-radiobutton col-6"
+              *ngFor="let dato of lista_de_categorias"
+            >
+              <p-radioButton
+                formControlName="CategoriaId"
+                value="{{ dato.id }}"
+              ></p-radioButton>
+              <label>{{ dato.descripcion }}</label>
+            </div>
           </div>
-      </div>
+        </div>
+
+
+        <div class="field">
+          <label class="mb-3">Expositores Disponibles</label>
+          <div class="formgrid grid">
+            <div
+              class="field-radiobutton col-6"
+              *ngFor="let dato of lista_de_expositores"
+            >
+              <p-radioButton
+                formControlName="ExpositorId"
+                value="{{ dato.UsuarioId }}"
+              ></p-radioButton>
+              <label>{{ dato.Usuario.Persona.nombre + " " + dato.Usuario.Persona.paterno  }}</label>
+            </div>
+          </div>
+        </div>
 
         <div class="row">
-          <button type="button" class="btn btn-success" (click)="guardarEditar()">
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="guardarEditar()"
+          >
             {{ this.select_id > 0 ? "Guardar Cambios" : "Guardar" }}
           </button>
-          <button type="button" class="btn btn-danger my-1" (click)="cancelar()">
+          <button
+            type="button"
+            class="btn btn-danger my-1"
+            (click)="cancelar()"
+          >
             Cancelar
           </button>
         </div>
@@ -82,14 +108,13 @@
   </div>
 </p-dialog>
 
-
 <div class="flex justify-content-between">
   <h3>Actividades del Evento</h3>
   <div class="flex my-3">
     <div class="flex mx-3">
-        <p-button label="Adicionar Actvidad" (click)="showDialog()"> </p-button>
+      <p-button label="Adicionar Actvidad" (click)="showDialog()"> </p-button>
     </div>
-      <p-button label="Volver" (click)="volver()"> </p-button>
+    <p-button label="Volver" (click)="volver()"> </p-button>
   </div>
 </div>
 
@@ -131,12 +156,13 @@
           <p-sortIcon field="fecha"></p-sortIcon>
         </th>
         <th pSortableColumn="horario_ini">
-          {{ "Hora Inicio" | uppercase }} <p-sortIcon field="horario_ini"></p-sortIcon>
+          {{ "Hora Inicio" | uppercase }}
+          <p-sortIcon field="horario_ini"></p-sortIcon>
         </th>
         <th pSortableColumn="horario_fin">
-          {{ "Hora Fin" | uppercase }} <p-sortIcon field="horario_fin"></p-sortIcon>
+          {{ "Hora Fin" | uppercase }}
+          <p-sortIcon field="horario_fin"></p-sortIcon>
         </th>
-
 
         <th pSortableColumn="Categorium.descripcion">
           {{ "Categoria" | uppercase }}
@@ -144,7 +170,7 @@
         </th>
         <!-- <th pSortableColumn="editar">{{"Editar" | uppercase }}  <p-sortIcon field="editar"></p-sortIcon>   </th>
               <th pSortableColumn="eliminar">{{"Eliminar"  | uppercase }}  <p-sortIcon field="eliminar"></p-sortIcon>   </th> -->
-        <th pSortableColumn="ajustes" >
+        <th pSortableColumn="ajustes">
           {{ "Ajustes" | uppercase }}
           <p-sortIcon field="ajustes"></p-sortIcon>
         </th>
@@ -166,7 +192,7 @@
         <th>
           <p-columnFilter type="text" field="horario_fin"></p-columnFilter>
         </th>
-        
+
         <th>
           <p-columnFilter
             type="text"
@@ -188,9 +214,9 @@
       <tr>
         <td>{{ dato.id }}</td>
         <td>{{ dato.nombre }}</td>
-        <td>{{ dato.fecha | date}}</td>
-        <td>{{ dato.horario_ini  }}</td>
-        <td>{{ dato.horario_fin  }}</td>
+        <td>{{ dato.fecha | date }}</td>
+        <td>{{ dato.horario_ini }}</td>
+        <td>{{ dato.horario_fin }}</td>
         <td>{{ dato.Categorium.descripcion }}</td>
         <td>
           <p-button

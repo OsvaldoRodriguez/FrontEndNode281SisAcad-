@@ -1,5 +1,5 @@
-<p-dialog
-  header="{{ this.select_id > 0 ? 'Actualizar Persona' : 'Crear Persona' }}"
+<!-- <p-dialog
+  header="{{ this.select_id > 0 ? 'Actualizar Actividad' : 'Crear Actividad' }}"
   [(visible)]="visible"
   [modal]="true"
   [style]="{ width: '50vw' }"
@@ -7,9 +7,11 @@
   [resizable]="false"
   styleClass="p-fluid"
 >
+  {{ actividadForm.value | json }}
   <div class="card">
     <div class="row">
-      <form [formGroup]="personaForm">
+      <form [formGroup]="actividadForm">
+        
         
 
 
@@ -24,51 +26,48 @@
           />
         </div>
 
-        <label for="name">Apellido Parterno</label>
-        <div class="field">
-          <input
-            type="text"
-            pInputText
-            formControlName="paterno"
-            required
-            autofocus
-          />
-        </div>
-
-        <label for="name">Apellido Materno</label>
-        <div class="field">
-          <input
-            type="text"
-            pInputText
-            formControlName="materno"
-            required
-            autofocus
-          />
-        </div>
-
-        <label for="name">Fecha de nacimiento</label>
+        <label for="name">fecha</label>
         <div class="field">
           <input
             type="date"
             pInputText
-            formControlName="fecha_nac"
+            formControlName="fecha"
             required
             autofocus
           />
         </div>
 
-        <label for="name">Sexo</label>
+        <label for="name">Hora Inicio</label>
         <div class="field">
           <input
-            type="text"
+            type="time"
             pInputText
-            formControlName="sexo"
+            formControlName="horario_ini"
+            required
+            autofocus
+          />
+        </div>
+        <label for="name">Hora Fin</label>
+        <div class="field">
+          <input
+            type="time"
+            pInputText
+            formControlName="horario_fin"
             required
             autofocus
           />
         </div>
 
-        
+        <div class="field">
+          <label class="mb-3">Categoria</label>
+          <div class="formgrid grid">
+              <div class="field-radiobutton col-6" *ngFor="let dato of lista_de_categorias">
+                  <p-radioButton formControlName ="CategoriaId" value="{{dato.id}}"  ></p-radioButton>
+                  <label >{{dato.descripcion}}</label>
+              </div>
+              
+          </div>
+      </div>
 
         <div class="row">
           <button type="button" class="btn btn-success" (click)="guardarEditar()">
@@ -81,18 +80,23 @@
       </form>
     </div>
   </div>
-</p-dialog>
+</p-dialog>  -->
 
 <div class="flex justify-content-between">
-  <h2>Participaciones en Eventos</h2>
-  <p-button label="Adicionar Persona" (onClick)="showDialog()"> </p-button>
+  <h3>Actividades del Evento</h3>
+  <div class="flex my-3">
+    <div class="flex mx-3">
+      <!-- <p-button label="Adicionar Actvidad" (click)="showDialog()"> </p-button> -->
+    </div>
+    <!-- <p-button label="Volver" (click)="volver()"> </p-button> -->
+  </div>
 </div>
 
 <div class="card">
   <p-table
     selectionMode="single"
-    [(selection)]="lista_personas"
-    [value]="lista_personas"
+    [(selection)]="lista_de_actividades"
+    [value]="lista_de_actividades"
     [paginator]="true"
     [rows]="15"
     [scrollable]="true"
@@ -104,13 +108,13 @@
     [globalFilterFields]="[
       'id',
       'nombre',
-      'paterno',
-      'materno',
-      'fecha_nac',
-      'sexo',
+      'fecha',
+      'horario_ini',
+      'horario_fin',
+      'categoria',
       'ajustes'
     ]"
-    [tableStyle]="{ 'min-width': '90rem' }"
+    [tableStyle]="{ 'min-width': '100rem' }"
   >
     <ng-template pTemplate="header">
       <tr>
@@ -118,25 +122,31 @@
           {{ "codigo" | uppercase }} <p-sortIcon field="id"></p-sortIcon>
         </th>
         <th pSortableColumn="nombre">
-          {{ "nombre" | uppercase }}
+          {{ "Nombre" | uppercase }}
           <p-sortIcon field="nombre"></p-sortIcon>
         </th>
-        <th pSortableColumn="paterno">
-          {{ "paterno" | uppercase }} <p-sortIcon field="paterno"></p-sortIcon>
+        <th pSortableColumn="fecha">
+          {{ "Fecha Inicio" | uppercase }}
+          <p-sortIcon field="fecha"></p-sortIcon>
         </th>
-        <th pSortableColumn="materno">
-          {{ "materno" | uppercase }} <p-sortIcon field="materno"></p-sortIcon>
+        <th pSortableColumn="horario_ini">
+          {{ "Hora Inicio" | uppercase }}
+          <p-sortIcon field="horario_ini"></p-sortIcon>
         </th>
-        <th pSortableColumn="fecha_nac">
-          {{ "fecha_nac" | uppercase }} <p-sortIcon field="fecha_nac"></p-sortIcon>
+        <th pSortableColumn="horario_fin">
+          {{ "Hora Fin" | uppercase }}
+          <p-sortIcon field="horario_fin"></p-sortIcon>
         </th>
-        <th pSortableColumn="sexo">
-            {{ "sexo" | uppercase }} <p-sortIcon field="sexo"></p-sortIcon>
-          </th>
 
-        <th pSortableColumn="actividad">
+        <!-- <th pSortableColumn="Categorium.descripcion">
+          {{ "Categoria" | uppercase }}
+          <p-sortIcon field="Categorium.descripcion"></p-sortIcon>
+        </th> -->
+        <!-- <th pSortableColumn="editar">{{"Editar" | uppercase }}  <p-sortIcon field="editar"></p-sortIcon>   </th>
+              <th pSortableColumn="eliminar">{{"Eliminar"  | uppercase }}  <p-sortIcon field="eliminar"></p-sortIcon>   </th> -->
+        <th pSortableColumn="ajustes">
           {{ "Ajustes" | uppercase }}
-          <p-sortIcon field="actividad"></p-sortIcon>
+          <p-sortIcon field="ajustes"></p-sortIcon>
         </th>
       </tr>
 
@@ -147,54 +157,194 @@
         <th>
           <p-columnFilter type="text" field="nombre"></p-columnFilter>
         </th>
+        <th>
+          <p-columnFilter type="text" field="fecha"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="horario_ini"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="horario_fin"></p-columnFilter>
+        </th>
 
+        <!-- <th>
+          <p-columnFilter
+            type="text"
+            field="Categorium.descripcion"
+          ></p-columnFilter>
+        </th> -->
         <th>
-          <p-columnFilter type="text" field="paterno"> </p-columnFilter>
+          <p-columnFilter type="text" field="ajustes"></p-columnFilter>
         </th>
-        <th>
-          <p-columnFilter type="text" field="materno"></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter type="date" field="fecha_nac"></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter type="text" field="sexo"></p-columnFilter>
-        </th>
-        <th>
-            <p-columnFilter type="text" field="ajustes"></p-columnFilter>
-          </th>
+        <!-- <th>
+                  <p-columnFilter type="text" field="eliminar"></p-columnFilter>
+              </th>
+              <th>
+                  <p-columnFilter type="text" field="actividad"></p-columnFilter>
+              </th> -->
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-dato>
+    <ng-template pTemplate="body" let-dato let-dato2>
       <tr>
         <td>{{ dato.id }}</td>
         <td>{{ dato.nombre }}</td>
-        <td>
-          {{ dato.paterno }}
-        </td>
-        <td>{{ dato.materno }}</td>
-        <td>{{ dato.fecha_nac | date }}</td>
-        <td>{{ dato.sexo }}</td>
-        
+        <td>{{ dato.fecha | date }}</td>
+        <td>{{ dato.horario_ini }}</td>
+        <td>{{ dato.horario_fin }}</td>
+        <!-- <td>{{ dato.Categorium.descripcion }}</td> -->
         <td>
           <p-button
             class="border"
-            icon="pi pi-pencil"
-            (click)="editar(dato)"
-            styleClass="p-button-raised p-button-warning"
+            icon="pi pi-plus"
+            (click)="showModalDialogImage(dato)"
+            styleClass="p-button-raised p-button-success"
           ></p-button>
 
-          <p-button
+          <!-- <p-button
             class="border"
             icon="pi pi-trash"
             (click)="eliminar(dato.id)"
             styleClass="p-button-raised p-button-danger"
-          ></p-button>
+          ></p-button> -->
         </td>
       </tr>
     </ng-template>
   </p-table>
 </div>
 
-<p-toast position="top-right"> </p-toast>
+<p-toast position="top-right"></p-toast>
 
+<!-- {{this.select_id}} -->
+<!-- <app-actividades [id_evento]="this.select_id" ></app-actividades> -->
+
+<p-dialog
+  header="Subir Imagen"
+  [(visible)]="displayModalImage"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [maximizable]="true"
+>
+  <!-- vamos a visualizar los pdfs -->
+
+  <div class="card">
+    <p-table
+      selectionMode="single"
+      [(selection)]="lista_de_archivos"
+      [value]="lista_de_archivos"
+      [paginator]="true"
+      [rows]="15"
+      [scrollable]="true"
+      scrollHeight="400px"
+      #dt1
+      dataKey="id"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [tableStyle]="{ 'min-width': '50rem' }"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="id">
+            {{ "codigo" | uppercase }} <p-sortIcon field="id"></p-sortIcon>
+          </th>
+          <th pSortableColumn="nombre_archivo">
+            {{ "nombre archivo" | uppercase }}
+            <p-sortIcon field="nombre_archivo"></p-sortIcon>
+          </th>
+
+          <th pSortableColumn="Archivo">
+            {{ "Direccion" | uppercase }}
+            <p-sortIcon field="Archivo"></p-sortIcon>
+          </th>
+
+          <th pSortableColumn="ajustes">
+            {{ "Ajustes" | uppercase }}
+            <p-sortIcon field="ajustes"></p-sortIcon>
+          </th>
+        </tr>
+
+        <tr>
+          <th>
+            <p-columnFilter type="text" field="id"></p-columnFilter>
+          </th>
+          <th>
+            <p-columnFilter type="text" field="nombre_archivo"></p-columnFilter>
+          </th>
+
+          <th>
+            <p-columnFilter type="text" field="archivo"></p-columnFilter>
+          </th>
+
+          <th>
+            <p-columnFilter type="text" field="ajustes"></p-columnFilter>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-dato>
+        <tr>
+          <td>{{ dato.id }}</td>
+          <td>{{ dato.nombre_archivo }}</td>
+          <td>
+            <!-- <iframe
+              [src]="
+                this.direccionImagen.sanitizer.bypassSecurityTrustResourceUrl(
+                  this.direccionImagen + dato.nombre_archivo
+                )
+              "
+              width="100"
+              class="shadow-4"
+            ></iframe> -->
+
+            <!-- <img
+            [src]="this.direccionImagen + dato.nombre_archivo"
+            width="100"
+            class="shadow-4"
+            /> -->
+              
+            <a target="_blank" [href]="this.direccionImagen + dato.nombre_archivo" class="p-button p-button-raised p-button-rounded"> Enlace</a>
+          </td>
+          <td>
+            <!-- <p-button
+              class="border"
+              icon="pi pi-plus"
+              styleClass="p-button-raised p-button-success"
+            ></p-button> -->
+
+            <p-button
+              class="border"
+              icon="pi pi-trash"
+              (click)="eliminar(dato.id)"
+              styleClass="p-button-raised p-button-danger"
+            ></p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <!-- para subir archivos -->
+
+  
+  <p-fileUpload
+    name="demo[]"
+    [customUpload]="true"
+    (uploadHandler)="myUploader($event)"
+  >
+    <ng-template pTemplate="content">
+      <ul *ngIf="uploadedFiles.length">
+        <li *ngFor="let file of uploadedFiles">
+          {{ file.name }} - {{ file.size }} bytes
+        </li>
+      </ul>
+    </ng-template>
+  </p-fileUpload>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="displayModalImage = false"
+      label="Ok"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

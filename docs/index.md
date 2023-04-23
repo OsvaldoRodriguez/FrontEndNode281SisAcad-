@@ -111,3 +111,8 @@ ROLS
 2 Control
 3 Participante
 4 Expositor
+
+
+Fury -> Admin
+nelson -> expositor
+oliver -> 
