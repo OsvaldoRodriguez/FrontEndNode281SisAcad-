@@ -29,7 +29,7 @@ export class DobleAutentificacionComponent {
 
     if (localStorage.getItem('user') === null) {
       this.router.navigate(['auth/login']);
-      // this.verificarPin();
+      this.verificarPin();
     } else {
       // console.log("existe token en doble autentificación");
     }

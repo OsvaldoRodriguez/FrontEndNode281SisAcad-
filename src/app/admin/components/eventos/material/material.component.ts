@@ -202,14 +202,15 @@ export class MaterialComponent {
   }
   
 
-  eliminar(Datos: any) {
-    console.log(Datos);
-    this.personaService.eliminar(Datos).subscribe(
-      (res: any) => {
-        this.mostrarActividades();
-      },
-      (error: any) => console.error(error)
-    );
+  eliminar(id: number) {
+    // console.log("datos para eliminar");
+    // console.log(id, this.eventos.id);
+    // const datitos = {Actividad_EventoId : this.eventos.id};
+    this.materialActividadServices.eliminar(id).subscribe((res : any) => {
+      this.showFileByExpositor();
+    }, (error : any) => {
+
+    })
   }
 
 

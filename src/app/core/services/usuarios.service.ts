@@ -26,6 +26,8 @@ export class UsuariosService {
   }
 
   actualizarImagen(id : number, formData : any){
+    console.log("desde el servicio", id);
+    
     return this.http.post(`${this.url_servidor}/${this.valor_api}/${id}/actualizar-imagen`, formData);
   }
 

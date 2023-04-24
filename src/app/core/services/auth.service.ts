@@ -51,6 +51,7 @@ export class AuthService {
 
       this.router.navigate(['/auth/doble_autentificacion']);
     }, (error : any) => {
+      
     })
     // console.log("flag antes d enviar", flag);
     

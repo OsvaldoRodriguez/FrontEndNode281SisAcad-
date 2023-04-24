@@ -19,7 +19,8 @@ export class PerfilComponent {
   uploadedFiles: any[] = [];
   datosImagen: any;
   url_imagen: any;
-
+  id_persona : any
+  current_user : any;
   constructor(
     private usuarioService: UsuariosService,
     private messageService: MessageService,
@@ -52,7 +53,6 @@ export class PerfilComponent {
   });
 
   mostrar() {
-    let id_persona: number = 0;
     this.usuarioService.mostrar().subscribe(
       (res: any) => {
         this.datosUsuario = res;
@@ -62,10 +62,11 @@ export class PerfilComponent {
           // console.log("recorriendo aray", this.datosUsuario.nom_usuario);
           if (this.usuario_actual === this.datosUsuario[i].nom_usuario) {
             // console.log('iddddd ', this.datosUsuario[i].PersonaId);
-            id_persona = this.datosUsuario[i].PersonaId;
+            this.current_user = this.datosUsuario[i].id;
+            this.id_persona = this.datosUsuario[i].PersonaId;
             this.datosUsuario = this.datosUsuario[i];
 
-            this.personaSerivce.mostrarId(id_persona).subscribe(
+            this.personaSerivce.mostrarId(this.id_persona).subscribe(
               (res: any) => {
                 this.datosPersona = res;
                 console.log(this.datosPersona);
@@ -104,7 +105,8 @@ export class PerfilComponent {
                   ]),
                   
                 });
-
+                console.log("datos de la foto", this.datosUsuario.foto);
+                
                 this.url_imagen = direccion.usuarios + this.datosUsuario.foto;
               },
               (error: any) => {}
@@ -201,8 +203,10 @@ export class PerfilComponent {
     let formData = new FormData();
     formData.append('imagen', event.files[0]); // porque solo es una imagen
 
+    console.log("id persona", this.current_user);
+    
     this.usuarioService
-      .actualizarImagen(this.datosImagen.id, formData)
+      .actualizarImagen(this.current_user, formData)
       .subscribe(
         (res: any) => {
           this.displayModalImage = false;

@@ -33,7 +33,7 @@ export class MaterialDeActividadService {
 
   mostrarIdByExpositor(id : number, data : any){
     // se puede enviar el id por body utilizando post
-    console.log( "en el servicio", data);
+    // console.log( "en el servicio", data);
     return this.http.put(`${this.url_servidor}/${this.valor_api}_by_expositor/${id}`, data);
   }
 
@@ -42,6 +42,9 @@ export class MaterialDeActividadService {
   }
 
   eliminar(id : number){
+    // console.log("en el servicio", id, `${this.url_servidor}/${this.valor_api}/${id}`);
+    // console.log("en el serciio", datos);
+    
     return this.http.delete(`${this.url_servidor}/${this.valor_api}/${id}`);
   }
 }

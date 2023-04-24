@@ -63,7 +63,7 @@ ng g s core/services/evento
 
 
 # necesitamos en eventos (expositor)
-* material (eventos)
+* material (eventos) (OK)
 
 # infraestructura (control)
 * Crear Ambiente y recursos (Institucion) -> porque adicionara infraestructura por institucion  (OK)
@@ -92,6 +92,9 @@ ng g s core/services/evento
 
 
 
+********************
+falta crear expositor por interfaz
+falta adicionar categorias por interfaz
 
 
 
