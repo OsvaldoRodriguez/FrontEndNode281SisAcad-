@@ -10,6 +10,8 @@ import { AppLayoutModule } from './layout/app.layout.module';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { PeticionInterceptor } from './interceptors/peticion.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,7 @@ import { TableModule } from 'primeng/table';
     TableModule,
     ButtonModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: PeticionInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

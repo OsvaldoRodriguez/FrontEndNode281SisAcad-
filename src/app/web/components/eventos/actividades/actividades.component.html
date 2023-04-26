@@ -1,6 +1,10 @@
-{{ this.datosDelPadre }}
+<!-- {{ this.datosDelPadre }} -->
 
 <div class="card mx-5">
+
+  <div class="card">
+    <h2> Evento </h2>
+  </div>
   <div class="grid">
     <div class="col-7">
       <h3>Actividades del Evento</h3>
@@ -84,6 +88,7 @@
               <p-button
                 class="border"
                 icon="pi pi-check"
+                (click)="inscribirse(dato)"
                 styleClass="p-button-raised p-button-success"
               ></p-button>
               <!-- </td>
@@ -127,6 +132,95 @@
             [style]="{ 'margin-left': '.5em' }"
           ></p-button> -->
         </ng-template>
+      </p-card>
+    </div>
+  </div>
+
+  <div class="grid" *ngIf="!(this.is_logued === null)">
+    <div class="col">
+      <h4>Comentarios del Evento</h4>
+    </div>
+  </div>
+
+  <div class="grid" *ngIf="!(this.is_logued === null)">
+    <div class="col-7">
+      <p-card>
+        <!-- <ng-template pTemplate="title"> </ng-template> -->
+        <div class="p-fluid">
+          <div class="p-field p-grid">
+            <div class="p-col-10" *ngFor="let coment of lista_de_comentarios">
+              
+              <div class="grid" >
+                <div class="col-2">
+                  <img
+                    class="circle-image2"
+                    [src]="this.url_imagen + coment.foto"
+                  />
+                  <p>{{ coment.nombre }} </p>
+                </div>
+                <div class="col">
+                  <p>{{coment.fecha_hora }}</p>
+                  <h6>{{ coment.descripcion }}</h6>
+                </div>
+              </div>
+              <p-divider></p-divider>
+              
+            </div>
+          </div>
+        </div>
+      </p-card>
+    </div>
+  </div>
+
+  <div class="grid" *ngIf="!(this.is_logued === null)">
+    <div class="col-7">
+      <p-card>
+        <!-- <ng-template pTemplate="title"> </ng-template> -->
+        <form [formGroup]="comentarioForm">
+          <div class="p-fluid">
+            <div class="p-field p-grid">
+              <label for="comment" class="p-col-2 my-2">Comentario:</label>
+              <!-- {{ this.comentarioForm.value | json }} -->
+              <div class="p-col-10">
+                <div class="grid">
+                  <div class="col-2">
+                    <img
+                      class="circle-image"
+                      src="./../../../../../assets/images/form.png"
+                    />
+                  </div>
+                  <div class="col">
+                    <textarea
+                      id="address"
+                      type="text"
+                      rows="4"
+                      formControlName="descripcion"
+                      class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-grid">
+              <div class="p-col-12">
+                <!-- <button
+                icon="pi pi-send"
+                type="button"
+                class="p-button p-button-primary"
+              >
+                Enviar
+              </button> -->
+
+                <p-button
+                  icon="pi pi-send"
+                  label="Enviar"
+                  (click)="enviarComentario()"
+                  styleClass="p-button-success"
+                ></p-button>
+              </div>
+            </div>
+          </div>
+        </form>
       </p-card>
     </div>
   </div>

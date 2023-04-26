@@ -9,7 +9,8 @@ import { CardModule } from 'primeng/card';
 import {ButtonModule} from 'primeng/button';
 import { ActividadesComponent } from './components/eventos/actividades/actividades.component'
 import {TableModule} from 'primeng/table';
-
+import { DividerModule } from 'primeng/divider';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     InicioComponent,
@@ -22,7 +23,11 @@ import {TableModule} from 'primeng/table';
     WebRoutingModule,
     CardModule,
     ButtonModule,
-    TableModule
+    TableModule,
+    DividerModule,
+    ReactiveFormsModule,
+    FormsModule,
+
   ], exports : [
     InicioComponent, EventosComponent
   ]

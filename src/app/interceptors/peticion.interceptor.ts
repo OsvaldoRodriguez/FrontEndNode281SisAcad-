@@ -38,7 +38,6 @@ export class PeticionInterceptor implements HttpInterceptor {
           if(error.status !== 401){
             return;
           }
-
           // entonces puede que el token haya vencido y lo eliminamos
 
           // localStorage.removeItem('access_token');
