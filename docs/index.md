@@ -7,6 +7,7 @@ ng g m admin --routing
 
 ng g c web/components/inicio
 ng g c web/components/eventos
+ng g c web/components/eventos/actividades
 ng g c web/components/acerca_de
 
 

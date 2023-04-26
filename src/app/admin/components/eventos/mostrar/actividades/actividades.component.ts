@@ -92,7 +92,7 @@ export class ActividadesComponent implements OnInit {
     this.actividadEventoService.mostrarId(this.datosDelPadre).subscribe(
       (res: any) => {
         this.lista_actividades = res;
-        // console.log("traenco act", this.lista_actividades);
+        console.log("traenco act", this.lista_actividades);
         
       },
       (error: any) => console.error(error)

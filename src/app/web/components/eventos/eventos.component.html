@@ -1,21 +1,18 @@
-
-<!-- forma responsiva -->
 <div class="container">
-    <!-- col-md-12
+  <!-- col-md-12
       col-lg-12 
       col-sm-12 
       col-xs-12
       col-xl-12   -->
-    <div class="row">
-      <!-- es una fila de 12 -->
-      <div class="col-md-12 text-center text-black m-4">
-        <h1>Eventos</h1>
-      </div>
-      <!--  la suma de los 3 es 12, porque una fila tiene 12 -->
+  <div class="row">
+    <!-- es una fila de 12 -->
+    <div class="col-md-12 text-center text-black m-4">
+      <h1>Eventos</h1>
     </div>
-    <div class="row">
-      
-      <!-- <div class="col-md-4">
+    <!--  la suma de los 3 es 12, porque una fila tiene 12 -->
+  </div>
+  <div class="row">
+    <!-- <div class="col-md-4">
          <p-card header="Advanced Card" subheader="Card Subheader" *ngFor="let eventos of lista_eventos" >
           <ng-template pTemplate="header">
               <div [style]="{'padding': '1em'}">
@@ -32,7 +29,42 @@
           </ng-template>
         </p-card> 
       </div> -->
-      <div class="col-md-6" *ngFor="let eventos of lista_eventos">
+
+    <div class="col-md-6" *ngFor="let eventos of lista_eventos">
+      <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-4 contenedor">
+            <!-- <img src="..." class="img-fluid rounded-start" alt="..."> -->
+            <img
+              [src]="this.direccionEventosImagen + eventos.logo"
+              class="img-fluid rounded-start"
+              width="100%"
+              height="100%"
+            />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ eventos.nombre_Evento }}</h5>
+              <p class="card-text">{{ eventos.descripcion }}</p>
+              <p class="card-text">
+                <small class="text-muted">
+                  {{ eventos.Institucion.ubicacion }} -
+                  {{ eventos.fecha_ini | date }}
+                </small>
+              </p>
+              <p-button
+                class="border"
+                icon="pi pi-plus"
+                label="Ver Mas..."
+                (click)="navegarHaciaHijo(eventos.id)"
+                styleClass="p-button-raised p-button-success"
+              ></p-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-md-6" *ngFor="let eventos of lista_eventos">
         <div class="card" >
           <img
             [src]="this.direccionEventosImagen + eventos.logo"
@@ -53,24 +85,6 @@
             <a href="#" class="btn btn-primary">Ver mas</a>
           </div>
         </div>
-      </div>
-      <!-- <div class="col-md-4">
-        <div class="card">
-          <img
-            src="https://lumiere-a.akamaihd.net/v1/images/transformers_el_lado_oscuro_de_la_luna-121329126-large_bd791f0f.jpeg?region=0,0,1280,719"
-            class="card-img-top"
-            alt=""
-          />
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
       </div> -->
-    </div>
   </div>
-  
+</div>

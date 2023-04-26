@@ -1,0 +1,9 @@
+.contenedor {
+    // width: 200px; /* Ancho deseado del contenedor */
+    font-size: 14px;
+  }
+  
+  .contenedor img {
+    max-width: 100%; /* La imagen se ajustará automáticamente al ancho del contenedor */
+    height: auto; /* Altura de la imagen ajustada automáticamente */
+  }

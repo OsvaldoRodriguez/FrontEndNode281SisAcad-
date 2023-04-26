@@ -1,0 +1,133 @@
+{{ this.datosDelPadre }}
+
+<div class="card mx-5">
+  <div class="grid">
+    <div class="col-7">
+      <h3>Actividades del Evento</h3>
+
+      <p-button
+        class="border"
+        icon="pi pi-file-pdf"
+        (click)="generarPDF()"
+        styleClass="p-button-raised p-button-primary"
+      ></p-button>
+
+      <p-table
+        [value]="lista_de_actividades"
+        [paginator]="true"
+        [rows]="15"
+        [scrollable]="true"
+        [tableStyle]="{ 'min-width': '90rem' }"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="nombre">
+              {{ "nombre" | uppercase }}
+              <p-sortIcon field="nombre"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="fecha">
+              {{ "fecha" | uppercase }}
+              <p-sortIcon field="fecha"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="horario_ini">
+              {{ "horario de inicio" | uppercase }}
+              <p-sortIcon field="horario_ini"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="horario_fin">
+              {{ "horario de finalización" | uppercase }}
+              <p-sortIcon field="horario_fin"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="Categorium.descripcion">
+              {{ "categoria" | uppercase }}
+              <p-sortIcon field="Categorium.descripcion"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="Ambientes[0]?.tipo_ambiente">
+              {{ "ambiente" | uppercase }}
+              <p-sortIcon field="Ambientes[0]?.tipo_ambiente"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="Ambientes[0]?.direccion_ambiente">
+              {{ "ubicación" | uppercase }}
+              <p-sortIcon field="Ambientes[0]?.direccion_ambiente"></p-sortIcon>
+            </th>
+
+            <th style="min-width: 10rem">Expositor</th>
+            <th style="min-width: 10rem" *ngIf="!(this.is_logued === null)">
+              Inscribirse
+            </th>
+            <!-- <th *ngIf="!(this.is_logued === null)">Reservar</th> -->
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-dato>
+          <tr>
+            <td>{{ dato.nombre }}</td>
+            <td>{{ dato.fecha | date }}</td>
+            <td>{{ dato.horario_ini }}</td>
+            <td>{{ dato.horario_fin }}</td>
+            <td>{{ dato.Categorium.descripcion }}</td>
+            <td>{{ dato.Ambientes[0]?.tipo_ambiente }}</td>
+            <td>{{ dato.Ambientes[0]?.direccion_ambiente }}</td>
+            <td>
+              <p-button
+                class="border"
+                icon="pi pi-user"
+                (click)="expositor(dato)"
+                styleClass="p-button-raised p-button-primary"
+              ></p-button>
+            </td>
+            <td *ngIf="!(this.is_logued === null)">
+              <p-button
+                class="border"
+                icon="pi pi-check"
+                styleClass="p-button-raised p-button-success"
+              ></p-button>
+              <!-- </td>
+
+            <td *ngIf="!(this.is_logued === null)"> -->
+              <p-button
+                class="border"
+                icon="pi pi-paperclip"
+                styleClass="p-button-raised p-button-warning"
+              ></p-button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div class="col-4">
+      <h3>Expositor del Evento</h3>
+      <p-card
+        [style.display]="visible_card ? 'block' : 'none'"
+        header=""
+        [style]="{ width: '360px' }"
+        styleClass="p-card-shadow"
+      >
+        <ng-template pTemplate="header">
+          <img alt="Card" src="{{ this.datos_expositor.direccionImagen }}" />
+        </ng-template>
+
+        <h6>
+          Nombre: {{ this.datos_expositor.nombre }}
+          {{ this.datos_expositor.paterno }}
+        </h6>
+        <h6>Correo electronico: {{ this.datos_expositor.correo }}</h6>
+        <p>{{ this.datos_expositor.experiencia_academica }}</p>
+        <ng-template pTemplate="footer">
+          <!-- <p-button label="Save" icon="pi pi-check"></p-button>
+          <p-button
+            label="Cancel"
+            icon="pi pi-times"
+            styleClass="p-button-secondary"
+            [style]="{ 'margin-left': '.5em' }"
+          ></p-button> -->
+        </ng-template>
+      </p-card>
+    </div>
+  </div>
+</div>
