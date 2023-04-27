@@ -11,12 +11,16 @@ import { ActividadesComponent } from './components/eventos/actividades/actividad
 import {TableModule} from 'primeng/table';
 import { DividerModule } from 'primeng/divider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialComponent } from './components/eventos/actividades/material/material.component';
+import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
 @NgModule({
   declarations: [
     InicioComponent,
     EventosComponent,
     AcercaDeComponent,
     ActividadesComponent,
+    MaterialComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +31,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DividerModule,
     ReactiveFormsModule,
     FormsModule,
+    DialogModule,
+    ToastModule,
+    
+    
 
   ], exports : [
     InicioComponent, EventosComponent

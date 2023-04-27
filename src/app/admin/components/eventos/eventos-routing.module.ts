@@ -27,7 +27,8 @@ const routes: Routes = [
     },
     path: 'material',
     component : MaterialComponent
-  }
+  },
+ 
 ];
 
 @NgModule({

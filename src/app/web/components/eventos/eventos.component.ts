@@ -25,7 +25,7 @@ export class EventosComponent {
   navegarHaciaHijo(id: any) {
     this.datosParaEnviar = id;
     this.route.navigate(['/web/actividadesWeb', this.datosParaEnviar]);
-    console.log("se esta volivendo");
+    // console.log("se esta volivendo");
     
   }
 

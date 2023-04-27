@@ -156,7 +156,15 @@ export class MostrarComponent implements OnInit {
   editar(datos: any) {
     this.select_id = datos.id;
     console.log(datos);
-    this.eventoForm.patchValue(datos);
+    this.eventoForm = new FormGroup({
+      nombre_Evento: new FormControl(datos.nombre_Evento, [Validators.required]),
+      fecha_ini: new FormControl(datos.fecha_ini, [Validators.required]),
+      fecha_fin: new FormControl(datos.fecha_fin, [Validators.required]),
+      // logo: new FormControl(datos.),
+      InstitucionId: new FormControl(datos.InstitucionId, [Validators.required]),
+      descripcion: new FormControl(datos.descripcion, [Validators.required]),
+    });
+    
     this.showDialog();
   }
 

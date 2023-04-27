@@ -18,6 +18,7 @@ export class EventosService {
   }
 
   guardar(datos : any){
+    datos.user = localStorage.getItem('user');
     return this.http.post(`${this.url_servidor}/${this.valor_api}`, datos);
   }
 
@@ -27,10 +28,11 @@ export class EventosService {
   }
 
   actualizar(id : number, datos : any){
+    datos.user = localStorage.getItem('user');
     return this.http.put(`${this.url_servidor}/${this.valor_api}/${id}`, datos);
   }
 
   eliminar(id : number){
-    return this.http.delete(`${this.url_servidor}/${this.valor_api}/${id}`);
+    return this.http.post(`${this.url_servidor}/${this.valor_api}/${id}`, {user : localStorage.getItem('user')});
   }
 }

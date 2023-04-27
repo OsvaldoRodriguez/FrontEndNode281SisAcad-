@@ -6,6 +6,7 @@
   [draggable]="false"
   [resizable]="false"
 >
+{{this.eventoForm.value |json}}
   <div class="card">
     <div class="row">
       <form [formGroup]="eventoForm">

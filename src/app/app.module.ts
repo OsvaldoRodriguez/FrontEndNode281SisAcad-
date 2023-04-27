@@ -26,7 +26,7 @@ import { PeticionInterceptor } from './interceptors/peticion.interceptor';
     TableModule,
     ButtonModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: PeticionInterceptor, multi: true}],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

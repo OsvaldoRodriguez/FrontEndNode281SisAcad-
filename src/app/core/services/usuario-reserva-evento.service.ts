@@ -5,18 +5,15 @@ import { environmet } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioSeInscribeEventoService {
-  
-  constructor(private http : HttpClient) { }
-  
+export class UsuarioReservaEventoService {
+  constructor ( private http : HttpClient) { }
   url_servidor = environmet.servidor;
-  valor_api = 'usuario_se_inscribe_evento';
+  valor_api = 'usuario_reserva_participacion_evento'
   mostrar(){
     return this.http.get(`${this.url_servidor}/${this.valor_api}`);
   }
 
   guardar(datos : any){
-    
     return this.http.post(`${this.url_servidor}/${this.valor_api}`, datos);
   }
 

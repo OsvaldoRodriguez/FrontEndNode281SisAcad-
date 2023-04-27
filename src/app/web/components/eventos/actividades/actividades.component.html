@@ -1,9 +1,66 @@
 <!-- {{ this.datosDelPadre }} -->
 
 <div class="card mx-5">
-
   <div class="card">
-    <h2> Evento </h2>
+    <ng-template pTemplate="title"> Evento </ng-template>
+    <div class="p-fluid">
+      <div class="p-field p-grid">
+        <div class="p-col-10">
+          <div class="grid">
+            <div class="col-4">
+              <!-- {{ this.datos_evento | json }} -->
+              <img class="circle-image3" [src]="this.url_imagen_evento" />
+            </div>
+            <div class="col">
+              <h1>{{ this.datos_evento?.nombre_Evento }}</h1>
+              <p>{{ this.datos_evento?.descripcion }}</p>
+              <p>
+                <strong>Fecha de Inicio: </strong>
+                {{ this.datos_evento?.fecha_ini | date }}
+              </p>
+              <p>
+                <strong>Fecha de finalización: </strong>
+                {{ this.datos_evento?.fecha_fin | date }}
+              </p>
+
+              <p>
+                <strong>Institución: </strong>
+                {{ this.datos_evento?.Institucion.nombre_institucion }}
+              </p>
+
+              <p>
+                <strong>Ubicacion: </strong>
+                {{ this.datos_evento?.Institucion.ubicacion }}
+              </p>
+
+              <div class="grid" *ngIf="!(this.is_logued === null)">
+                <div class="col">
+                  <p-button
+                    class="border"
+                    icon="pi pi-task"
+                    [label]="text_usuario_inscrito"
+                    [disabled]="usuario_inscrito"
+                    (click)="inscribirse({})"
+                    styleClass="p-button-raised p-button-success"
+                  ></p-button>
+                </div>
+                <div class="col">
+                  <p-button
+                    class="border"
+                    icon="pi pi-task"
+                    [label]="text_usuario_reserva"
+                    [disabled]="usuario_reserva"
+                    (click)="reservar({})"
+                    styleClass="p-button-raised p-button-success"
+                  ></p-button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p-divider></p-divider>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="grid">
     <div class="col-7">
@@ -61,9 +118,9 @@
             </th>
 
             <th style="min-width: 10rem">Expositor</th>
-            <th style="min-width: 10rem" *ngIf="!(this.is_logued === null)">
+            <!-- <th style="min-width: 10rem" *ngIf="!(this.is_logued === null)">
               Inscribirse
-            </th>
+            </th> -->
             <!-- <th *ngIf="!(this.is_logued === null)">Reservar</th> -->
           </tr>
         </ng-template>
@@ -83,23 +140,21 @@
                 (click)="expositor(dato)"
                 styleClass="p-button-raised p-button-primary"
               ></p-button>
-            </td>
-            <td *ngIf="!(this.is_logued === null)">
-              <p-button
-                class="border"
-                icon="pi pi-check"
-                (click)="inscribirse(dato)"
-                styleClass="p-button-raised p-button-success"
-              ></p-button>
-              <!-- </td>
 
-            <td *ngIf="!(this.is_logued === null)"> -->
-              <p-button
+              <p-button *ngIf="!(this.is_logued === null)"
+                class="border"
+                icon="pi pi-file-pdf"
+                (click)="showModalDialogImage(dato)"
+                styleClass="p-button-raised p-button-secondary"
+              ></p-button>
+            </td>
+            <!-- <td *ngIf="!(this.is_logued === null)">
+                <p-button
                 class="border"
                 icon="pi pi-paperclip"
                 styleClass="p-button-raised p-button-warning"
               ></p-button>
-            </td>
+            </td> -->
           </tr>
         </ng-template>
       </p-table>
@@ -149,22 +204,20 @@
         <div class="p-fluid">
           <div class="p-field p-grid">
             <div class="p-col-10" *ngFor="let coment of lista_de_comentarios">
-              
-              <div class="grid" >
+              <div class="grid">
                 <div class="col-2">
                   <img
                     class="circle-image2"
                     [src]="this.url_imagen + coment.foto"
                   />
-                  <p>{{ coment.nombre }} </p>
+                  <p>{{ coment.nombre }}</p>
                 </div>
                 <div class="col">
-                  <p>{{coment.fecha_hora }}</p>
+                  <p>{{ coment.fecha_hora }}</p>
                   <h6>{{ coment.descripcion }}</h6>
                 </div>
               </div>
               <p-divider></p-divider>
-              
             </div>
           </div>
         </div>
@@ -225,3 +278,94 @@
     </div>
   </div>
 </div>
+
+<p-dialog
+  header="Descargar Material"
+  [(visible)]="displayModalImage"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [maximizable]="true"
+>
+
+<!-- {{this.lista_de_material |json}} -->
+  <!-- vamos a visualizar los pdfs -->
+
+  <div class="card">
+    <p-table
+      selectionMode="single"
+      [(selection)]="lista_de_material"
+      [value]="lista_de_material"
+      [paginator]="true"
+      [rows]="15"
+      [scrollable]="true"
+      scrollHeight="400px"
+      #dt1
+      dataKey="id"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [tableStyle]="{ 'min-width': '10rem' }"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          
+          <th pSortableColumn="nombre_archivo">
+            {{ "nombre archivo" | uppercase }}
+            <p-sortIcon field="nombre_archivo"></p-sortIcon>
+          </th>
+
+          <th pSortableColumn="Archivo">
+            {{ "Direccion" | uppercase }}
+            <p-sortIcon field="Archivo"></p-sortIcon>
+          </th>
+
+          <th pSortableColumn="ajustes">
+            {{ "Ajustes" | uppercase }}
+            <p-sortIcon field="ajustes"></p-sortIcon>
+          </th>
+        </tr>
+
+        <tr>
+          
+          <th>
+            <p-columnFilter type="text" field="nombre_archivo"></p-columnFilter>
+          </th>
+
+          <th>
+            <p-columnFilter type="text" field="archivo"></p-columnFilter>
+          </th>
+
+          <th>
+            <p-columnFilter type="text" field="ajustes"></p-columnFilter>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-dato>
+        <tr>
+          <td>{{ dato.nombre_archivo }}</td>
+          <td>
+            
+
+            <a target="_blank" [href]="this.url_imagenMaterial + dato.nombre_archivo" class="p-button p-button-raised p-button-rounded"> Enlace</a>
+          </td>
+          <td>
+            <!-- <p-button
+              class="border"
+              icon="pi pi-plus"
+              styleClass="p-button-raised p-button-success"
+            ></p-button> -->
+
+            <p-button
+              class="border"
+              icon="pi pi-download"
+              (click)="descargar(dato.nombre_archivo)"
+              styleClass="p-button-raised p-button-success"
+            ></p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <!-- para subir archivos -->
+</p-dialog>

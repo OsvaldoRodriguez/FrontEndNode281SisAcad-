@@ -8,11 +8,15 @@ import { UsuariosService } from 'src/app/core/services/usuarios.service';
   selector: 'app-doble-autentificacion',
   templateUrl: './doble-autentificacion.component.html',
   styleUrls: ['./doble-autentificacion.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class DobleAutentificacionComponent {
   displayModal: boolean = true;
-  constructor(private router: Router, private usuarioService: UsuariosService, private messageService : MessageService) {
+  constructor(
+    private router: Router,
+    private usuarioService: UsuariosService,
+    private messageService: MessageService
+  ) {
     this.displayModal = true;
     this.verificarToken();
   }
@@ -55,8 +59,6 @@ export class DobleAutentificacionComponent {
           this.router.navigate(['admin']);
           this.displayModal = false;
           this.pinForm.reset();
-
-          
         } else {
           this.router.navigate(['auth/login']);
         }
