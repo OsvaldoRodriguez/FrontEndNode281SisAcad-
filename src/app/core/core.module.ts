@@ -30,6 +30,7 @@ import { AuditoriaService } from './services/auditoria.service';
 
 @NgModule({
   declarations: [],
+  // el httpClientModule es importante para el interceptor
   imports: [CommonModule, HttpClientModule],
   providers: [
     // eso se hace para poder exportar

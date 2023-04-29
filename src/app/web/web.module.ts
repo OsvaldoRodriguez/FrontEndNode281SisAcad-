@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialComponent } from './components/eventos/actividades/material/material.component';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
+import { CoreModule } from '../core/core.module';
 @NgModule({
   declarations: [
     InicioComponent,
@@ -25,6 +26,7 @@ import { DialogModule } from 'primeng/dialog';
   imports: [
     CommonModule,
     WebRoutingModule,
+    CoreModule, // es importante para el interceptor
     CardModule,
     ButtonModule,
     TableModule,

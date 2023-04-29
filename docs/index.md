@@ -120,3 +120,7 @@ ROLS
 Fury -> Admin
 nelson -> expositor
 oliver -> 
+
+
+# Para angular, para el seridor (para que recarge la pagina)
+npm i --save connect-history-api-fallback

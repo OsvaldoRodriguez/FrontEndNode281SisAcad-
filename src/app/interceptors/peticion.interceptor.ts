@@ -20,7 +20,7 @@ export class PeticionInterceptor implements HttpInterceptor {
     // este es el token proporcionado al usario al iniciar sesion
     // console.log("llega a interceptar");
     const token = localStorage.getItem('access_token');
-    // console.log("interceptor", token);
+    console.log("interceptor", token);
     
     // cualquier peticion se envia con  el token
     const peticion = request.clone({
